@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Download
+# wget http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/neon/3/eclipse-jee-neon-3-macosx-cocoa-x86_64.tar.gz
+# tar xvf eclipse-jee-neon-3-macosx-cocoa-x86_64.tar.gz
+# rm eclipse-jee-neon-3-macosx-cocoa-x86_64.tar.gz
+
+
+# CLEAN BUILD
+# Eclipse.app/Contents/MacOS/eclipse --launcher.suppressErrors -nosplash -data "/Users/andrewlee/Documents/workspace" -application org.eclipse.cdt.managedbuilder.core.headlessbuild -cleanBuild "swingjs"
+Eclipse.app/Contents/MacOS/eclipse --nosplash -application org.eclipse.jdt.apt.core.aptBuild -data "/Users/andrewlee/Documents/workspace/"
+
+# Eclipse.app/Contents/MacOS/eclipse --launcher.suppressErrors -nosplash -data "/Users/andrewlee/Documents/workspace" -application org.eclipse.jdt.apt.core.aptBuild
+# java -jar Eclipse.app/Contents/Eclipse/plugins/org.eclipse.equinox.launcher_1.3.201.v20161025-1711.jar -noSplash -data "/Users/andrewlee/git" -application org.eclipse.jdt.apt.core.aptBuild
+# Eclipse.app/Contents/MacOS/eclipse -nosplash -application org.eclipse.jdt.apt.core.aptBuild startup.jar -data "/Users/andrewlee/Documents/workspace/SwingJS"
+
+
+echo "
+*****************************
+SwingJS- Clean Build Complete
+*****************************
+"
+ant -buildfile ~/git/SwingJS/buildSite.xml
