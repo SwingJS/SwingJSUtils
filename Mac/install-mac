@@ -16,6 +16,7 @@ if [ ! -f "$BINARY" ]; then
     wget http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/neon/3/eclipse-jee-neon-3-macosx-cocoa-x86_64.tar.gz
 fi
 
+wget https://github.com/BobHanson/java2script/releases/download/v3.1.1/3.1.1.zip
 tar xvf eclipse-jee-neon-3-macosx-cocoa-x86_64.tar.gz
 rm eclipse-jee-neon-3-macosx-cocoa-x86_64.tar.gz
 unzip 3.1.1.zip -d Eclipse.app/Contents/Eclipse/dropins/
