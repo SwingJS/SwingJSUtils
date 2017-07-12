@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# CLEAN BUILD
+eclipse/eclipse --nosplash --launcher.suppressErrors -application org.eclipse.jdt.apt.core.aptBuild -data "/home/leeas/SwingJSUtils/Linux/workspace"
+
+echo "
+*****************************
+SwingJS- Clean Build Complete
+*****************************
+"
+ant -buildfile ~/git/SwingJS/buildSite.xml

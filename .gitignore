@@ -1,3 +1,6 @@
 /Mac/Eclipse.app
+/Mac/workspace/*
 /Windows/eclipse/*
+/Windows/workspace/*
 /Linux/eclipse/*
+/Linux/workspace/*
