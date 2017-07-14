@@ -1,9 +1,4 @@
 #!/bin/bash
-# PLEASE NOTE, THIS SCRIPT ASSUMES YOU HAVE A WORKING INSTALLATION OF HOMEBREW INSTALLED ON YOUR SYSTEM. FOR MORE INFORMATION, PLEASE VISIT https://brew.sh/
-
-brew install unzip
-brew install wget
-
 
 # Download
 BINARY="eclipse-jee-neon-3-macosx-cocoa-x86_64.tar.gz"
@@ -15,10 +10,10 @@ if [ -d "$APP" ]; then
 fi
 
 if [ ! -f "$BINARY" ]; then
-    wget http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/neon/3/eclipse-jee-neon-3-macosx-cocoa-x86_64.tar.gz
+    curl -O http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/neon/3/eclipse-jee-neon-3-macosx-cocoa-x86_64.tar.gz
 fi
 
-wget https://github.com/BobHanson/java2script/releases/download/v3.1.1/3.1.1.zip
+curl -LOk https://github.com/BobHanson/java2script/releases/download/v3.1.1/3.1.1.zip
 tar xvf eclipse-jee-neon-3-macosx-cocoa-x86_64.tar.gz
 rm eclipse-jee-neon-3-macosx-cocoa-x86_64.tar.gz
 unzip 3.1.1.zip -d Eclipse.app/Contents/Eclipse/dropins/
