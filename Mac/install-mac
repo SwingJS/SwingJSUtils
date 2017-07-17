@@ -3,10 +3,12 @@
 # Download
 BINARY="eclipse-jee-neon-3-macosx-cocoa-x86_64.tar.gz"
 APP="Eclipse.app"
+cd $1
+
 echo $BINARY
 echo $APP
 if [ -d "$APP" ]; then
-    rm -rf Eclipse.app
+    rm -rf $INSTALLPATH/Eclipse.app
 fi
 
 if [ ! -f "$BINARY" ]; then
