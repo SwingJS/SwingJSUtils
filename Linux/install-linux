@@ -1,10 +1,14 @@
 #!/bin/bash
+
+if [ ! -z "$1" ]
+then
+    cd $1
+fi
 read -p "SwingJS uses program unzip to unzip programs. Install Unzip now?" -n 1 -r
 echo    # (optional) move to a new line
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
     sudo apt-get install unzip 
-    cd $1
     # Download
     BINARY="eclipse-jee-neon-R-linux-gtk-x86_64.tar.gz"
     APP="eclipse"
