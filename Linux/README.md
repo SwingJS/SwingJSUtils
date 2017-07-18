@@ -1,7 +1,7 @@
 # Linux Scripts
 ### By the SwingJS Team
 
-======
+------------
 ## To Install
 
 ```
@@ -10,7 +10,7 @@
 
 If no path is supplied, the script will install Eclipse into the same directory as the location of the `install-linux` script.
 
-======
+------------
 ## Clean Install
 
 ```
