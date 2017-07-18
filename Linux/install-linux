@@ -1,21 +1,26 @@
 #!/bin/bash
-sudo apt-get install unzip 
+read -p "SwingJS uses program unzip to unzip programs. Install Unzip now?" -n 1 -r
+echo    # (optional) move to a new line
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+    sudo apt-get install unzip 
+    cd $1
+    # Download
+    BINARY="eclipse-jee-neon-R-linux-gtk-x86_64.tar.gz"
+    APP="eclipse"
+    echo $BINARY
+    echo $APP
+    if [ -d "$APP" ]; then
+        rm -rf Eclipse.app
+    fi
 
-# Download
-BINARY="eclipse-jee-neon-R-linux-gtk-x86_64.tar.gz"
-APP="eclipse"
-echo $BINARY
-echo $APP
-if [ -d "$APP" ]; then
-    rm -rf Eclipse.app
+    if [ ! -f "$BINARY" ]; then
+        wget http://mirror.csclub.uwaterloo.ca/eclipse/technology/epp/downloads/release/neon/R/eclipse-jee-neon-R-linux-gtk-x86_64.tar.gz
+    fi
+
+    wget https://github.com/BobHanson/java2script/releases/download/v3.1.1/3.1.1.zip
+    tar xvf eclipse-jee-neon-R-linux-gtk-x86_64.tar.gz
+    rm eclipse-jee-neon-R-linux-gtk-x86_64.tar.gz
+    unzip 3.1.1.zip -d eclipse/dropins/
+    rm 3.1.1.zip
 fi
-
-if [ ! -f "$BINARY" ]; then
-    wget http://mirror.csclub.uwaterloo.ca/eclipse/technology/epp/downloads/release/neon/R/eclipse-jee-neon-R-linux-gtk-x86_64.tar.gz
-fi
-
-wget https://github.com/BobHanson/java2script/releases/download/v3.1.1/3.1.1.zip
-tar xvf eclipse-jee-neon-R-linux-gtk-x86_64.tar.gz
-rm eclipse-jee-neon-R-linux-gtk-x86_64.tar.gz
-unzip 3.1.1.zip -d eclipse/dropins/
-rm 3.1.1.zip
