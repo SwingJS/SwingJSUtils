@@ -2,29 +2,32 @@
 
 wget https://raw.githubusercontent.com/SwingJS/SwingJSUtils/master/latestj2s
 NEWESTJ2S=`cat latestj2s`
+rm latestj2s
 
 if [ ! -z "$1" ]
 then
     cd $1
 fi
 
-read -p "SwingJS uses program unzip to unzip programs. Install Unzip now?" -n 1 -r
+read -p "SwingJS uses program unzip to unzip programs. Install Unzip now? [Y/N]" -n 1 -r
 echo    # (optional) move to a new line
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-    if [ -f "eclipse" ]
+    if [ -d "eclipse" ]
     then
         echo "Eclipse is already installed. Checking if plugins need to be updated"
-        CURRENTJ2S=$(ls eclipse/dropins/*.zip)
-        if [ ${CURRENTJ2S::-4} != $NEWESTJ2S ]
+        cd eclipse/dropins
+        CURRENTJ2S=$(ls *.zip)
+        CURRENTJ2S=${CURRENTJ2S::-4}
+        cd ../../
+        if [ $CURRENTJ2S != $NEWESTJ2S ]
         then
             rm -rf eclipse/dropins/*
-            wget https://github.com/BobHanson/java2script/releases/download/v$NEWESTJ2S/$NEWESTJ2S.zip
+            wget https://github.com/BobHanson/java2script/releases/download/$NEWESTJ2S/$NEWESTJ2S.zip
             cp $NEWESTJ2S.zip eclipse/dropins/$NEWESTJ2S.zip
             unzip $NEWESTJ2S.zip -d eclipse/dropins/
             rm $NEWESTJ2S.zip
         fi
-        rm latestj2s
         [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1 # handle exits from shell or function but don't exit interactive shell
     fi
     sudo apt-get install unzip 
@@ -40,10 +43,10 @@ then
     if [ ! -f "$BINARY" ]; then
         wget http://mirror.csclub.uwaterloo.ca/eclipse/technology/epp/downloads/release/neon/R/eclipse-jee-neon-R-linux-gtk-x86_64.tar.gz
     fi
-    wget https://github.com/BobHanson/java2script/releases/download/v$NEWESTJ2S/$NEWESTJ2S.zip
-    cp $NEWESTJ2S.zip eclipse/dropins/$NEWESTJ2S.zip
+    wget https://github.com/BobHanson/java2script/releases/download/$NEWESTJ2S/$NEWESTJ2S.zip
     tar xvf eclipse-jee-neon-R-linux-gtk-x86_64.tar.gz
     rm eclipse-jee-neon-R-linux-gtk-x86_64.tar.gz
+    cp $NEWESTJ2S.zip eclipse/dropins/$NEWESTJ2S.zip
     unzip $NEWESTJ2S.zip -d eclipse/dropins/
     rm $NEWESTJ2S.zip
 fi
