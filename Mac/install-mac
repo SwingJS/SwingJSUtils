@@ -3,7 +3,10 @@
 # Download
 BINARY="eclipse-jee-neon-3-macosx-cocoa-x86_64.tar.gz"
 APP="Eclipse.app"
-cd $1
+if [ ! -z "$1" ]
+then
+    cd $1
+fi
 
 echo $BINARY
 echo $APP
