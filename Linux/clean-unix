@@ -1,11 +1,31 @@
 #!/bin/bash
 
 # CLEAN BUILD
-eclipse/eclipse --nosplash --launcher.suppressErrors -application org.eclipse.jdt.apt.core.aptBuild -data "/home/leeas/SwingJSUtils/Linux/workspace"
+if [ ! -z "$1" ]
+then
+    cd $1
+fi
+
+if [ ! -z "$2" ]
+then
+    cd $2
+    eclipse/eclipse --nosplash --launcher.suppressErrors -application org.eclipse.jdt.apt.core.aptBuild -data "$2"
+else
+    echo "You need to supply a valid full path of the location of your workspace (Don't use unix shortcuts like '~/')"
+    [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1 # handle exits from shell or function but don't exit interactive shell
+fi
 
 echo "
 *****************************
 SwingJS- Clean Build Complete
 *****************************
 "
-ant -buildfile ~/git/SwingJS/buildSite.xml
+if [ ! -z "$3" ]
+then
+    cd $3
+    ant -buildfile $3/buildSite.xml
+else
+    echo "You need to supply a valid full path of the location of SwingJS Ant Build Scripts"
+    [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1 # handle exits from shell or function but don't exit interactive shell
+fi
+
