@@ -16,3 +16,5 @@ If no path is supplied, the script will install Eclipse into the same directory 
 ```
 ./clean-unix [OPTIONAL] location/of/eclipse/installation [REQUIRED] location/of/eclipse/workspace [REQUIRED] location/of/SwingJS/ant/build.xml
 ```
+
+If no path is supplied, the script will assume location of the eclipse installation is in the same directory as the clean script. 
