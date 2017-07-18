@@ -1,25 +1,47 @@
 #!/bin/bash
 
-# Download
-BINARY="eclipse-jee-neon-3-macosx-cocoa-x86_64.tar.gz"
-APP="Eclipse.app"
+curl -O https://raw.githubusercontent.com/SwingJS/SwingJSUtils/master/latestj2s
+NEWESTJ2S=`cat latestj2s`
+rm latestj2s
+
 if [ ! -z "$1" ]
 then
     cd $1
 fi
 
+if [ -d "Eclipse.app" ]
+then
+    echo "Eclipse is already installed. Checking if plugins need to be updated"
+    cd Eclipse.app/Contents/Eclipse/dropins
+    CURRENTJ2S=$(ls *.zip)
+    CURRENTJ2S=${CURRENTJ2S::-4}
+    cd ../../../../
+    if [ $CURRENTJ2S != $NEWESTJ2S ]
+    then
+        rm -rf Eclipse.app/Contents/Eclipse/dropins/*
+        curl -LOk https://github.com/BobHanson/java2script/releases/download/$NEWESTJ2S/$NEWESTJ2S.zip
+        cp $NEWESTJ2S.zip Eclipse.app/Contents/Eclipse/dropins/$NEWESTJ2S.zip
+        unzip $NEWESTJ2S.zip -d Eclipse.app/Contents/Eclipse/dropins/
+        rm $NEWESTJ2S.zip
+    fi
+    [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1 # handle exits from shell or function but don't exit interactive shell
+fi
+
+# Download
+BINARY="eclipse-jee-neon-3-macosx-cocoa-x86_64.tar.gz"
+APP="Eclipse.app"
 echo $BINARY
 echo $APP
 if [ -d "$APP" ]; then
-    rm -rf $INSTALLPATH/Eclipse.app
+    rm -rf $APP
 fi
 
 if [ ! -f "$BINARY" ]; then
     curl -O http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/neon/3/eclipse-jee-neon-3-macosx-cocoa-x86_64.tar.gz
 fi
-
-curl -LOk https://github.com/BobHanson/java2script/releases/download/v3.1.1/3.1.1.zip
+curl -LOk https://github.com/BobHanson/java2script/releases/download/$NEWESTJ2S/$NEWESTJ2S.zip
 tar xvf eclipse-jee-neon-3-macosx-cocoa-x86_64.tar.gz
 rm eclipse-jee-neon-3-macosx-cocoa-x86_64.tar.gz
-unzip 3.1.1.zip -d Eclipse.app/Contents/Eclipse/dropins/
-rm 3.1.1.zip
+cp $NEWESTJ2S.zip Eclipse.app/Contents/Eclipse/dropins/$NEWESTJ2S.zip
+unzip $NEWESTJ2S.zip -d Eclipse.app/Contents/Eclipse/dropins/
+rm $NEWESTJ2S.zip
