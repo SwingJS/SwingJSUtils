@@ -47,7 +47,7 @@ then
             fi
 
             # Download
-            BINARY="eclipse-jee-neon-3-macosx-cocoa-x86_64.tar.gz"
+            BINARY="eclipse-jee-neon-R-linux-gtk-x86_64.tar.gz"
             APP="Eclipse.app"
             echo $BINARY
             echo $APP
@@ -56,11 +56,11 @@ then
             fi
 
             if [ ! -f "$BINARY" ]; then
-                wget http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/neon/3/eclipse-jee-neon-3-macosx-cocoa-x86_64.tar.gz
+                wget http://mirror.csclub.uwaterloo.ca/eclipse/technology/epp/downloads/release/neon/R/eclipse-jee-neon-R-linux-gtk-x86_64.tar.gz
             fi
             wget https://github.com/BobHanson/java2script/raw/swingjs/releases/latest/net.sf.j2s_latest.zip
-            tar xvf eclipse-jee-neon-3-macosx-cocoa-x86_64.tar.gz
-            rm eclipse-jee-neon-3-macosx-cocoa-x86_64.tar.gz
+            tar xvf $BINARY
+            rm $BINARY
             mv net.sf.j2s_latest.zip net.sf.j2s_$NEWESTJ2S.zip
             cp net.sf.j2s_$NEWESTJ2S.zip eclipse/dropins/net.sf.j2s_$NEWESTJ2S.zip
             unzip net.sf.j2s_$NEWESTJ2S.zip -d eclipse/dropins/
@@ -107,11 +107,12 @@ then
             fi
 
             if [ ! -f "$BINARY" ]; then
-                wget http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/neon/3/eclipse-jee-neon-3-macosx-cocoa-x86_64.tar.gz
+                wget http://mirror.csclub.uwaterloo.ca/eclipse/technology/epp/downloads/release/neon/R/eclipse-jee-neon-R-linux-gtk-x86_64.tar.gz
+
             fi
             wget https://github.com/BobHanson/java2script/raw/swingjs/releases/$2/net.sf.j2s_$2.zip
-            tar xvf eclipse-jee-neon-3-macosx-cocoa-x86_64.tar.gz
-            rm eclipse-jee-neon-3-macosx-cocoa-x86_64.tar.gz
+            tar xvf $BINARY
+            rm $BINARY
             cp net.sf.j2s_$2.zip eclipse/dropins/net.sf.j2s_$2.zip
             unzip net.sf.j2s_$2.zip -d eclipse/dropins/
             rm net.sf.j2s_$2.zip
