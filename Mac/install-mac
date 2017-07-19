@@ -6,7 +6,7 @@ rm latestj2s
 
 if [ $1 == "no-swingjs"]
 then
-    if [$2 == "latest"]
+    if [ $2 == "latest" ]
     then
         if [ ! -z "$3" ]
         then
@@ -52,7 +52,7 @@ then
         if [ ! -f "$BINARY" ]; then
             curl -O http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/neon/3/eclipse-jee-neon-3-macosx-cocoa-x86_64.tar.gz
         fi
-        curl -LOk https://github.com/BobHanson/java2script/releases/download/latest/net.sf.j2s_latest.zip
+        curl -LOk https://github.com/BobHanson/java2script/raw/swingjs/releases/latest/net.sf.j2s_latest.zip
         tar xvf eclipse-jee-neon-3-macosx-cocoa-x86_64.tar.gz
         rm eclipse-jee-neon-3-macosx-cocoa-x86_64.tar.gz
         cp net.sf.j2s_latest.zip Eclipse.app/Contents/Eclipse/dropins/net.sf.j2s_latest.zip
