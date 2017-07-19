@@ -16,20 +16,23 @@ then
         if [ -d "Eclipse.app" ]
         then
             echo "Eclipse is already installed. Installing latest plugin"
-            # # cd Eclipse.app/Contents/Eclipse/dropins
-            # CURRENTJ2S=$(ls *.zip)
-            # CURRENTJ2S=${CURRENTJ2S::-4}
-            # cd ../../../../
-            # if [ $CURRENTJ2S != $NEWESTJ2S ]
-            # then
-            rm -rf Eclipse.app/Contents/Eclipse/dropins/*
-            curl -LOk https://github.com/BobHanson/java2script/raw/swingjs/releases/latest/latest.zip
-            mv latest.zip $NEWESTJ2S.zip
-            cp $NEWESTJ2S.zip Eclipse.app/Contents/Eclipse/dropins/$NEWESTJ2S.zip
-            unzip $NEWESTJ2S.zip -d Eclipse.app/Contents/Eclipse/dropins/
-            rm $NEWESTJ2S.zip
-            # fi
-            [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1 # handle exits from shell or function but don't exit interactive shell
+            cd Eclipse.app/Contents/Eclipse/dropins
+            CURRENTJ2S=$(ls *.zip)
+            CURRENTJ2S=${CURRENTJ2S::-4}
+            cd ../../../../
+            if [ $CURRENTJ2S != $2 ]
+            then
+                rm -rf Eclipse.app/Contents/Eclipse/dropins/*
+                curl -LOk https://github.com/BobHanson/java2script/raw/swingjs/releases/$2/$2.zip
+                mv latest.zip $2.zip
+                cp $2.zip Eclipse.app/Contents/Eclipse/dropins/$2.zip
+                unzip $2.zip -d Eclipse.app/Contents/Eclipse/dropins/
+                rm $2.zip
+                [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1 # handle exits from shell or function but don't exit interactive shell
+            else
+                echo "Latest J2S version $CURRENTJ2S already installed, exiting"
+                [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1 # handle exits from shell or function but don't exit interactive shell
+            fi
         fi
 
         # Download
@@ -70,8 +73,11 @@ then
                 cp $2.zip Eclipse.app/Contents/Eclipse/dropins/$2.zip
                 unzip $2.zip -d Eclipse.app/Contents/Eclipse/dropins/
                 rm $2.zip
+                [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1 # handle exits from shell or function but don't exit interactive shell
+            else
+                echo "Specified J2S plugin version $2 already installed, exiting"
+                [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1 # handle exits from shell or function but don't exit interactive shell
             fi
-            [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1 # handle exits from shell or function but don't exit interactive shell
         fi
 
         # Download
