@@ -3,6 +3,8 @@
 curl -O https://raw.githubusercontent.com/SwingJS/SwingJSUtils/master/latestj2s
 NEWESTJ2S=`cat latestj2s`
 rm latestj2s
+BINARY="eclipse-jee-neon-3-macosx-cocoa-x86_64.tar.gz"
+APP="Eclipse.app"
 
 if [ $1 == "no-swingjs" ]
 then
@@ -40,9 +42,6 @@ then
             fi
         fi
 
-        # Download
-        BINARY="eclipse-jee-neon-3-macosx-cocoa-x86_64.tar.gz"
-        APP="Eclipse.app"
         echo $BINARY
         echo $APP
         if [ -d "$APP" ]; then
@@ -53,8 +52,8 @@ then
             curl -O http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/neon/3/eclipse-jee-neon-3-macosx-cocoa-x86_64.tar.gz
         fi
         curl -LOk https://github.com/BobHanson/java2script/raw/swingjs/releases/latest/net.sf.j2s_latest.zip
-        tar xvf eclipse-jee-neon-3-macosx-cocoa-x86_64.tar.gz
-        rm eclipse-jee-neon-3-macosx-cocoa-x86_64.tar.gz
+        tar xvf $BINARY
+        rm $BINARY
         mv net.sf.j2s_latest.zip net.sf.j2s_$NEWESTJ2S.zip
         cp net.sf.j2s_$NEWESTJ2S.zip Eclipse.app/Contents/Eclipse/dropins/net.sf.j2s_$NEWESTJ2S.zip
         unzip net.sf.j2s_$NEWESTJ2S.zip -d Eclipse.app/Contents/Eclipse/dropins/
@@ -91,9 +90,6 @@ then
             fi
         fi
 
-        # Download
-        BINARY="eclipse-jee-neon-3-macosx-cocoa-x86_64.tar.gz"
-        APP="Eclipse.app"
         echo $BINARY
         echo $APP
         if [ -d "$APP" ]; then
@@ -104,8 +100,8 @@ then
             curl -O http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/neon/3/eclipse-jee-neon-3-macosx-cocoa-x86_64.tar.gz
         fi
         curl -LOk https://github.com/BobHanson/java2script/raw/swingjs/releases/$2/net.sf.j2s_$2.zip
-        tar xvf eclipse-jee-neon-3-macosx-cocoa-x86_64.tar.gz
-        rm eclipse-jee-neon-3-macosx-cocoa-x86_64.tar.gz
+        tar xvf $BINARY
+        rm $BINARY
         cp net.sf.j2s_$2.zip Eclipse.app/Contents/Eclipse/dropins/net.sf.j2s_$2.zip
         unzip net.sf.j2s_$2.zip -d Eclipse.app/Contents/Eclipse/dropins/
         rm net.sf.j2s_$2.zip

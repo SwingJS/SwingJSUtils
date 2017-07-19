@@ -3,6 +3,8 @@
 wget https://raw.githubusercontent.com/SwingJS/SwingJSUtils/master/latestj2s
 NEWESTJ2S=`cat latestj2s`
 rm latestj2s
+BINARY="eclipse-jee-neon-R-linux-gtk-x86_64.tar.gz"
+APP="Eclipse.app"
 
 read -p "SwingJS uses program unzip to unzip programs. Install Unzip now? [Y/N]" -n 1 -r
 echo    # (optional) move to a new line
@@ -46,9 +48,6 @@ then
                 fi
             fi
 
-            # Download
-            BINARY="eclipse-jee-neon-R-linux-gtk-x86_64.tar.gz"
-            APP="Eclipse.app"
             echo $BINARY
             echo $APP
             if [ -d "$APP" ]; then
@@ -97,9 +96,6 @@ then
                 fi
             fi
 
-            # Download
-            BINARY="eclipse-jee-neon-3-macosx-cocoa-x86_64.tar.gz"
-            APP="Eclipse.app"
             echo $BINARY
             echo $APP
             if [ -d "$APP" ]; then
