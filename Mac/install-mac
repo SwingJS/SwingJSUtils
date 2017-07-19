@@ -4,7 +4,7 @@ curl -O https://raw.githubusercontent.com/SwingJS/SwingJSUtils/master/latestj2s
 NEWESTJ2S=`cat latestj2s`
 rm latestj2s
 
-if [ $1 == "no-swingjs"]
+if [ $1 == "no-swingjs" ]
 then
     if [ $2 == "latest" ]
     then
