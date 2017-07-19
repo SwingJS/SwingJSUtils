@@ -15,22 +15,27 @@ then
 
         if [ -d "Eclipse.app" ]
         then
-            echo "Eclipse is already installed. Installing latest plugin"
+            echo "****************************************
+            Eclipse is already installed. Checking to see if the your J2S plugins need to be updated to the most recent version.
+            ****************************************"
             cd Eclipse.app/Contents/Eclipse/dropins
             CURRENTJ2S=$(ls *.zip)
             CURRENTJ2S=${CURRENTJ2S::-4}
+            CURRENTJ2S=${CURRENTJ2S:11}
             cd ../../../../
             if [ $CURRENTJ2S != $2 ]
             then
-                rm -rf Eclipse.app/Contents/Eclipse/dropins/*
-                curl -LOk https://github.com/BobHanson/java2script/raw/swingjs/releases/$2/$2.zip
-                mv latest.zip $2.zip
-                cp $2.zip Eclipse.app/Contents/Eclipse/dropins/$2.zip
-                unzip $2.zip -d Eclipse.app/Contents/Eclipse/dropins/
-                rm $2.zip
+                rm -rf Eclipse.app/Contents/Eclipse/dropins/net.sf.j2s*
+                curl -LOk https://github.com/BobHanson/java2script/raw/swingjs/releases/$2/net.sf.j2s_$2.zip
+                mv net.sf.j2s_$2.zip net.sf.j2s_$NEWESTJ2S.zip
+                cp net.sf.j2s_$NEWESTJ2S.zip Eclipse.app/Contents/Eclipse/dropins/net.sf.j2s_$NEWESTJ2S.zip
+                unzip net.sf.j2s_$NEWESTJ2S.zip -d Eclipse.app/Contents/Eclipse/dropins/
+                rm net.sf.j2s_$NEWESTJ2S.zip
                 [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1 # handle exits from shell or function but don't exit interactive shell
             else
-                echo "Latest J2S version $CURRENTJ2S already installed, exiting"
+                echo "****************************************
+                Latest J2S plugins version $CURRENTJ2S already installed, exiting
+                ****************************************"
                 [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1 # handle exits from shell or function but don't exit interactive shell
             fi
         fi
@@ -47,12 +52,12 @@ then
         if [ ! -f "$BINARY" ]; then
             curl -O http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/neon/3/eclipse-jee-neon-3-macosx-cocoa-x86_64.tar.gz
         fi
-        curl -LOk https://github.com/BobHanson/java2script/releases/download/$NEWESTJ2S/$NEWESTJ2S.zip
+        curl -LOk https://github.com/BobHanson/java2script/releases/download/latest/net.sf.j2s_latest.zip
         tar xvf eclipse-jee-neon-3-macosx-cocoa-x86_64.tar.gz
         rm eclipse-jee-neon-3-macosx-cocoa-x86_64.tar.gz
-        cp $NEWESTJ2S.zip Eclipse.app/Contents/Eclipse/dropins/$NEWESTJ2S.zip
-        unzip $NEWESTJ2S.zip -d Eclipse.app/Contents/Eclipse/dropins/
-        rm $NEWESTJ2S.zip
+        cp net.sf.j2s_latest.zip Eclipse.app/Contents/Eclipse/dropins/net.sf.j2s_latest.zip
+        unzip net.sf.j2s_latest.zip -d Eclipse.app/Contents/Eclipse/dropins/
+        rm net.sf.j2s_latest.zip
     else #specify a version of the plugins [in argv, this will be argument #2, and can be invoked via $2]
         if [ ! -z "$3" ]
         then
@@ -61,21 +66,26 @@ then
 
         if [ -d "Eclipse.app" ]
         then
-            echo "Eclipse is already installed. Checking if plugins need to be changed"
+            echo "****************************************
+            Eclipse is already installed. Checking if J2S plugins need to be changed
+            ****************************************"
             cd Eclipse.app/Contents/Eclipse/dropins
             CURRENTJ2S=$(ls *.zip)
             CURRENTJ2S=${CURRENTJ2S::-4}
+            CURRENTJ2S=${CURRENTJ2S:11}
             cd ../../../../
             if [ $CURRENTJ2S != $2 ]
             then
-                rm -rf Eclipse.app/Contents/Eclipse/dropins/*
-                curl -LOk https://github.com/BobHanson/java2script/raw/swingjs/releases/$2/$2.zip
-                cp $2.zip Eclipse.app/Contents/Eclipse/dropins/$2.zip
-                unzip $2.zip -d Eclipse.app/Contents/Eclipse/dropins/
-                rm $2.zip
+                rm -rf Eclipse.app/Contents/Eclipse/dropins/net.sf.j2s*
+                curl -LOk https://github.com/BobHanson/java2script/raw/swingjs/releases/$2/net.sf.j2s_$2.zip
+                cp net.sf.j2s_$2.zip Eclipse.app/Contents/Eclipse/dropins/net.sf.j2s_$2.zip
+                unzip net.sf.j2s_$2.zip -d Eclipse.app/Contents/Eclipse/dropins/
+                rm net.sf.j2s_$2.zip
                 [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1 # handle exits from shell or function but don't exit interactive shell
             else
-                echo "Specified J2S plugin version $2 already installed, exiting"
+                echo "****************************************
+                Specified J2S plugins version $2 already installed, exiting
+                ****************************************"
                 [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1 # handle exits from shell or function but don't exit interactive shell
             fi
         fi
@@ -92,11 +102,15 @@ then
         if [ ! -f "$BINARY" ]; then
             curl -O http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/neon/3/eclipse-jee-neon-3-macosx-cocoa-x86_64.tar.gz
         fi
-        curl -LOk https://github.com/BobHanson/java2script/raw/swingjs/releases/$2/$2.zip
+        curl -LOk https://github.com/BobHanson/java2script/raw/swingjs/releases/$2/net.sf.j2s_$2.zip
         tar xvf eclipse-jee-neon-3-macosx-cocoa-x86_64.tar.gz
         rm eclipse-jee-neon-3-macosx-cocoa-x86_64.tar.gz
-        cp $2.zip Eclipse.app/Contents/Eclipse/dropins/$2.zip
-        unzip $2.zip -d Eclipse.app/Contents/Eclipse/dropins/
-        rm $2.zip
+        cp net.sf.j2s_$2.zip Eclipse.app/Contents/Eclipse/dropins/net.sf.j2s_$2.zip
+        unzip net.sf.j2s_$2.zip -d Eclipse.app/Contents/Eclipse/dropins/
+        rm net.sf.j2s_$2.zip
     fi
+else
+    echo "****************************************
+swingjs option not yet implemented. Please check back in a few days time. You will be able to install either the version of J2S plugins compatible with your most recent version of the SwingJS runtime, or a version of the J2S plugins that is compatible with your specified version of the SwingJS runtime.
+****************************************"
 fi
