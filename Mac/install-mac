@@ -55,9 +55,10 @@ then
         curl -LOk https://github.com/BobHanson/java2script/raw/swingjs/releases/latest/net.sf.j2s_latest.zip
         tar xvf eclipse-jee-neon-3-macosx-cocoa-x86_64.tar.gz
         rm eclipse-jee-neon-3-macosx-cocoa-x86_64.tar.gz
-        cp net.sf.j2s_latest.zip Eclipse.app/Contents/Eclipse/dropins/net.sf.j2s_latest.zip
-        unzip net.sf.j2s_latest.zip -d Eclipse.app/Contents/Eclipse/dropins/
-        rm net.sf.j2s_latest.zip
+        mv net.sf.j2s_latest.zip net.sf.j2s_$NEWESTJ2S.zip
+        cp net.sf.j2s_$NEWESTJ2S.zip Eclipse.app/Contents/Eclipse/dropins/net.sf.j2s_$NEWESTJ2S.zip
+        unzip net.sf.j2s_$NEWESTJ2S.zip -d Eclipse.app/Contents/Eclipse/dropins/
+        rm net.sf.j2s_$NEWESTJ2S.zip
     else #specify a version of the plugins [in argv, this will be argument #2, and can be invoked via $2]
         if [ ! -z "$3" ]
         then
