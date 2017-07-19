@@ -110,8 +110,13 @@ then
         unzip net.sf.j2s_$2.zip -d Eclipse.app/Contents/Eclipse/dropins/
         rm net.sf.j2s_$2.zip
     fi
-else
+elif [ $1 == "swingjs" ]
+then
     echo "****************************************
 swingjs option not yet implemented. Please check back in a few days time. You will be able to install either the version of J2S plugins compatible with your most recent version of the SwingJS runtime, or a version of the J2S plugins that is compatible with your specified version of the SwingJS runtime.
+****************************************"
+else
+    echo "****************************************
+First argument must be either swingjs or no-swingjs.
 ****************************************"
 fi
