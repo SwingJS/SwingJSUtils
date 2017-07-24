@@ -1,0 +1,258 @@
+#!/bin/bash
+
+convertEclipseNames() {
+    if [ $1 == "4.7" ]
+    then
+        echo "4.7 (Oxygen)"
+    elif [ $1 == "4.6" ]
+    then
+        echo "4.6 (Neon)"
+    elif [ $1 == "4.5" ]
+    then
+        echo "4.5 (Mars)"
+    elif [ $1 == "4.4" ]
+    then
+        echo "4.4 (Luna)"
+    elif [ $1 == "4.3" ]
+    then
+        echo "4.3 (Kepler)"
+    elif [ $1 == "4.2" ]
+    then
+        echo "4.2 (Juno)"
+    else
+        echo $1
+    fi
+}
+
+SCRIPTDIR=$(pwd)
+if [ $1 == "-eclipse" ]
+then
+    if [ $2 == "-version" ]
+    then
+        if [ ! -z "$3" ] #Argument 3 is not empty [1) User wants ./install-mac -eclipse -version [check eclipse version] with supplied path or 2) user actually wants to install eclipse supplying the version for the 3rd argument]
+        then
+            if [ -d "${3}" ] #Argument 3 a directory [User wants to check Eclipse -version in a specific directory without installing anything]
+            then
+                cd ${3}
+                if [ -d "Eclipse.app" ]
+                then
+                    cd Eclipse.app/Contents/Eclipse/readme
+                    ECLIPSEVERSION=`grep "<title>Eclipse Project Release Notes" readme_eclipse.html`
+                    ECLIPSEVERSION=${ECLIPSEVERSION:37}
+                    ECLIPSEVERSION=${ECLIPSEVERSION%<*}
+                    convertEclipseNames $ECLIPSEVERSION
+                    [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1 # handle exits from shell or function but don't exit interactive shell
+                elif [ -d "eclipse" ]
+                then
+                    cd eclipse/readme
+                    ECLIPSEVERSION=`grep "<title>Eclipse Project Release Notes" readme_eclipse.html`
+                    ECLIPSEVERSION=${ECLIPSEVERSION:37}
+                    ECLIPSEVERSION=${ECLIPSEVERSION%<*}
+                    convertEclipseNames $ECLIPSEVERSION
+                    [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1 # handle exits from shell or function but don't exit interactive shell
+                fi
+
+            else #User does not want to print the eclipse version but wants to install it
+                if [ ! -z "${4}" ] #Argument 4 is not empty (this is where path would go), assume user wants to install Eclipse in the same directory as the script
+                then
+                    if [ -d "${4}"] #Argument 4 is a valid path
+                    then
+                        cd ${4}
+                    else
+                        echo "
+****************************************
+$4 is not a valid path. Please provide a valid POSIX path to install Eclipse, or leave it blank to install it in the same directory as the script
+****************************************
+"
+                    fi
+                fi #No need for else since if they leave argument 4 (path) blank, then no need to cd since the script will just assume the user wants the work done in the same directory as the script
+
+                if [ -d "Eclipse.app" ] || [ -d "eclipse" ] #Eclipse.app directory already exits, then warn user and exit program
+                then
+                    echo "
+****************************************
+Eclipse.app/eclipse already exists in ${pwd}. Either delete the ${pwd}/Eclipse.app or ${pwd}/eclipse, or choose a different directory to install Eclipse
+****************************************
+"
+                    [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1 # handle exits from shell or function but don't exit interactive shell
+                fi
+
+                if [ ${3} == "4.7" ] || [ ${3} == "Oxygen" ] || [ ${3} == "oxygen" ] || [ ${3} == "latest" ]
+                then
+                    echo "
+****************************************
+Installing Eclipse 4.7 Oxygen to $SCRIPTDIR
+****************************************
+"
+                    INSTALLLINK=http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/oxygen/R/eclipse-jee-oxygen-R-macosx-cocoa-x86_64.dmg
+                    BINARYNAME=eclipse-jee-oxygen-R-macosx-cocoa-x86_64.dmg
+                    EXTENSION=`echo $BINARYNAME | tail -c 4`
+                elif [ ${3} == "4.6" ] || [ ${3} == "Neon" ] || [ ${3} == "neon" ]
+                then
+                    echo "
+****************************************
+Installing Eclipse 4.6 Neon to $SCRIPTDIR
+****************************************
+"
+                    INSTALLLINK=http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/neon/3/eclipse-jee-neon-3-macosx-cocoa-x86_64.tar.gz
+                    BINARYNAME=eclipse-jee-neon-3-macosx-cocoa-x86_64.tar.gz
+                    EXTENSION=`echo $BINARYNAME | tail -c 4`
+                elif [ ${3} == "4.5" ] || [ ${3} == "Mars" ] || [ ${3} == "mars" ]
+                then
+                    echo "
+****************************************
+Installing Eclipse 4.5 Mars to $SCRIPTDIR
+****************************************
+"
+                    INSTALLLINK=http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/mars/2/eclipse-jee-mars-2-macosx-cocoa-x86_64.tar.gz
+                    BINARYNAME=eclipse-jee-mars-2-macosx-cocoa-x86_64.tar.gz
+                    EXTENSION=`echo $BINARYNAME | tail -c 4`
+                elif [ ${3} == "4.4" ] || [ ${3} == "Luna" ] || [ ${3} == "luna" ]
+                then
+                    echo "
+****************************************
+Installing Eclipse 4.4 Luna to $SCRIPTDIR
+****************************************
+"
+                    INSTALLLINK=http://mirror.cc.vt.edu/pub/eclipse/technology/epp/downloads/release/luna/SR2/eclipse-jee-luna-SR2-macosx-cocoa-x86_64.tar.gz
+                    BINARYNAME=eclipse-jee-luna-SR2-macosx-cocoa-x86_64.tar.gz
+                    EXTENSION=`echo $BINARYNAME | tail -c 4`
+                elif [ ${3} == "4.3" ] || [ ${3} == "Kepler" ] || [ ${3} == "kepler" ]
+                then
+                    echo "
+****************************************
+Installing Eclipse 4.3 Kepler to $SCRIPTDIR
+****************************************
+"
+                    INSTALLLINK=http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/kepler/SR2/eclipse-jee-kepler-SR2-macosx-cocoa-x86_64.tar.gz
+                    BINARYNAME=eclipse-jee-kepler-SR2-macosx-cocoa-x86_64.tar.gz
+                    EXTENSION=`echo $BINARYNAME | tail -c 4`
+                elif [ ${3} == "4.2" ] || [ ${3} == "Juno" ] || [ ${3} == "juno" ]
+                then
+                    echo "
+****************************************
+Installing Eclipse 4.2 Juno to $SCRIPTDIR
+****************************************
+"
+                    INSTALLLINK=http://mirror.csclub.uwaterloo.ca/eclipse/technology/epp/downloads/release/juno/SR2/eclipse-jee-juno-SR2-macosx-cocoa-x86_64.tar.gz
+                    BINARYNAME=eclipse-jee-juno-SR2-macosx-cocoa-x86_64.tar.gz
+                    EXTENSION=`echo $BINARYNAME | tail -c 4`
+                else
+                    echo "$3 is not a valid value for Eclipse version. Please select a number between 4.2 (Juno) and 4.7 (Oxygen)"
+                    [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1 # handle exits from shell or function but don't exit interactive shell
+                fi
+                
+                #Start installing Eclipse in the same directory as the script using the INSTALLLINK & BINARYNAME variables set above
+                if [ -f "Eclipse.app" ] || [ -f "eclipse" ] #Eclipse.app already exists: We don't want to nuke an existing installation. Hence, leave it up to the user to delete the app so they know what they are doing.
+                then
+                    echo "
+****************************************
+Eclipse.app/ or eclipse/ already exists in $SCRIPTDIR. Please delete the directory and use the same command again if you want to replace Eclipse with this version
+****************************************
+"
+                    [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1 # handle exits from shell or function but don't exit interactive shell
+                fi
+                echo "
+****************************************
+Downloading $INSTALLLINK
+****************************************
+"
+                curl -O "$INSTALLLINK"
+                if [ $EXTENSION == "dmg" ]
+                then
+                    echo "
+****************************************
+Mounting and copying from DMG volume file $BINARYNAME
+****************************************
+"
+                    hdiutil attach $BINARYNAME
+                    cp -rf /Volumes/Eclipse/Eclipse.app .
+                    ECLIPSEDISK=`diskutil list | grep Eclipse | awk '{print $6}'`
+                    diskutil unmount /dev/$ECLIPSEDISK
+                    rm $BINARYNAME
+                elif [ ${BINARYNAME} == ".gz" ]
+                then
+                    echo "
+****************************************
+Untarring $BINARYNAME
+****************************************
+"
+                    tar xvf $BINARY
+                    rm $BINARY
+                else
+                    echo "invalid extension for downloaded file $BINARYNAME"
+                fi
+            fi
+        else #Argument 3 is empty [Guaranteed user wants ./install-mac eclipse -version [Check Eclipse Version, Don't Install Anything] with no path option (assume Eclipse is in the same directory as the script]
+            if [ -d "Eclipse.app" ]
+            then
+                cd Eclipse.app/Contents/Eclipse/readme
+                ECLIPSEVERSION=`grep "<title>Eclipse Project Release Notes" readme_eclipse.html`
+                ECLIPSEVERSION=${ECLIPSEVERSION:37}
+                ECLIPSEVERSION=${ECLIPSEVERSION%<*}
+                convertEclipseNames $ECLIPSEVERSION
+                [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1 # handle exits from shell or function but don't exit interactive shell
+            elif [ -d "eclipse" ]
+            then
+                cd eclipse/readme
+                ECLIPSEVERSION=`grep "<title>Eclipse Project Release Notes" readme_eclipse.html`
+                ECLIPSEVERSION=${ECLIPSEVERSION:37}
+                ECLIPSEVERSION=${ECLIPSEVERSION%<*}
+                convertEclipseNames $ECLIPSEVERSION
+                [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1 # handle exits from shell or function but don't exit interactive shell
+            fi
+
+        fi
+
+    else
+        echo "
+****************************************
+Not a valid command. See README for instructions: (https://github.com/SwingJS/SwingJSUtils/blob/master/Mac/README.md)
+****************************************
+"
+    fi
+elif [ $1 == "-j2s" ]
+then
+    echo "USER PICKED -j2s OPTION"
+    if [ $2 == "-version" ]
+    then
+        echo "USER PICKED -j2s -version option"
+        if [ ! -z "$3" ] #Argument 3 is not empty [1) User wants ./install-mac -j2s -version [check j2s version] with supplied path or 2) user actually wants to install j2s plugins supplying the version for the 3rd argument]
+        then
+            echo "USER WANTS TO INSTALL J2S VERSION $3"
+        else
+            echo "USER WANTS TO SEE J2S VERSION WITHOUT INSTALLING ANYTHING"
+        fi
+    else
+        echo "
+****************************************
+Not a valid command. See README for instructions: (https://github.com/SwingJS/SwingJSUtils/blob/master/Mac/README.md)
+****************************************
+"
+    fi
+elif [ $1 == "-swingjs" ]
+then
+    echo "USER PICKED -swingjs -version"
+    if [ $2 == "-version" ]
+    then
+        echo "USER PICKED -swingjs -version"
+        if [ ! -z "$3" ] #Argument 3 is not empty [1) User wants ./install-mac -swingjs -version [check swingjs version] with supplied path or 2) user actually wants to install the compatible j2s plugins + SwingJS Runtime ZIP supplying the version for the 3rd argument]
+        then
+            echo "USER WANTS TO INSTALL SwingJS VERSION $3"
+        else
+            echo "USER WANTS TO SEE SwingJS VERSION WITHOUT INSTALLING ANYTHING"
+        fi
+    else
+        echo "
+****************************************
+Not a valid command. See README for instructions: (https://github.com/SwingJS/SwingJSUtils/blob/master/Mac/README.md)
+****************************************
+"
+    fi
+else
+    echo "
+****************************************
+Not a valid command. See README for instructions: (https://github.com/SwingJS/SwingJSUtils/blob/master/Mac/README.md)
+****************************************
+"
+fi
