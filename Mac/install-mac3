@@ -41,7 +41,7 @@ then
                     ECLIPSEVERSION=${ECLIPSEVERSION:37}
                     ECLIPSEVERSION=${ECLIPSEVERSION%<*}
                     convertEclipseNames $ECLIPSEVERSION
-                    [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1 # handle exits from shell or function but don't exit interactive shell
+                    exit
                 elif [ -d "eclipse" ]
                 then
                     cd eclipse/readme
@@ -49,13 +49,13 @@ then
                     ECLIPSEVERSION=${ECLIPSEVERSION:37}
                     ECLIPSEVERSION=${ECLIPSEVERSION%<*}
                     convertEclipseNames $ECLIPSEVERSION
-                    [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1 # handle exits from shell or function but don't exit interactive shell
+                    exit
                 fi
 
             else #User does not want to print the eclipse version but wants to install it
                 if [ ! -z "${4}" ] #Argument 4 is not empty (this is where path would go), assume user wants to install Eclipse in the same directory as the script
                 then
-                    if [ -d "${4}"] #Argument 4 is a valid path
+                    if [ -d "${4}" ] #Argument 4 is a valid path
                     then
                         cd ${4}
                     else
@@ -74,7 +74,7 @@ $4 is not a valid path. Please provide a valid POSIX path to install Eclipse, or
 Eclipse.app/eclipse already exists in ${pwd}. Either delete the ${pwd}/Eclipse.app or ${pwd}/eclipse, or choose a different directory to install Eclipse
 ****************************************
 "
-                    [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1 # handle exits from shell or function but don't exit interactive shell
+                    exit
                 fi
 
                 if [ ${3} == "4.7" ] || [ ${3} == "Oxygen" ] || [ ${3} == "oxygen" ] || [ ${3} == "latest" ]
@@ -139,7 +139,7 @@ Installing Eclipse 4.2 Juno to $SCRIPTDIR
                     EXTENSION=`echo $BINARYNAME | tail -c 4`
                 else
                     echo "$3 is not a valid value for Eclipse version. Please select a number between 4.2 (Juno) and 4.7 (Oxygen)"
-                    [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1 # handle exits from shell or function but don't exit interactive shell
+                    exit
                 fi
                 
                 #Start installing Eclipse in the same directory as the script using the INSTALLLINK & BINARYNAME variables set above
@@ -150,7 +150,7 @@ Installing Eclipse 4.2 Juno to $SCRIPTDIR
 Eclipse.app/ or eclipse/ already exists in $SCRIPTDIR. Please delete the directory and use the same command again if you want to replace Eclipse with this version
 ****************************************
 "
-                    [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1 # handle exits from shell or function but don't exit interactive shell
+                    exit
                 fi
                 echo "
 ****************************************
@@ -191,7 +191,7 @@ Untarring $BINARYNAME
                 ECLIPSEVERSION=${ECLIPSEVERSION:37}
                 ECLIPSEVERSION=${ECLIPSEVERSION%<*}
                 convertEclipseNames $ECLIPSEVERSION
-                [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1 # handle exits from shell or function but don't exit interactive shell
+                exit
             elif [ -d "eclipse" ]
             then
                 cd eclipse/readme
@@ -199,7 +199,7 @@ Untarring $BINARYNAME
                 ECLIPSEVERSION=${ECLIPSEVERSION:37}
                 ECLIPSEVERSION=${ECLIPSEVERSION%<*}
                 convertEclipseNames $ECLIPSEVERSION
-                [[ "$0" = "$BASH_SOURCE" ]] && exit 1 || return 1 # handle exits from shell or function but don't exit interactive shell
+                exit
             fi
 
         fi
@@ -211,25 +211,107 @@ Not a valid command. See README for instructions: (https://github.com/SwingJS/Sw
 ****************************************
 "
     fi
+
+
+
+
 elif [ $1 == "-j2s" ]
 then
-    echo "USER PICKED -j2s OPTION"
     if [ $2 == "-version" ]
     then
-        echo "USER PICKED -j2s -version option"
-        if [ ! -z "$3" ] #Argument 3 is not empty [1) User wants ./install-mac -j2s -version [check j2s version] with supplied path or 2) user actually wants to install j2s plugins supplying the version for the 3rd argument]
+        if [ ! -z "$3" ] #Argument 3 is not empty [1) User wants ./install-mac -j2s -version [check j2s version] with supplied path or 2) user actually wants to install j2s supplying the version for the 3rd argument]
         then
-            echo "USER WANTS TO INSTALL J2S VERSION $3"
-        else
-            echo "USER WANTS TO SEE J2S VERSION WITHOUT INSTALLING ANYTHING"
+            if [ -d "${3}" ] #Argument 3 a directory [User wants to check Eclipse -version in a specific directory without installing anything]
+            then
+                cd ${3}
+                CURRENTJ2S=$(ls *.zip)
+                CURRENTJ2S=${CURRENTJ2S::-4}
+                CURRENTJ2S=${CURRENTJ2S:11}
+                echo "J2s Version $CURRENTJ2S"
+                exit
+
+            else #User does not want to print the j2s version but wants to install it
+                if [ ! -z "${4}" ] #Argument 4 is not empty (this is where path would go), assume user wants to install Eclipse in the same directory as the script
+                then
+                    if [ -d "${4}" ] #Argument 4 is a valid path
+                    then
+                        cd ${4}
+                        rm -rf net.sf.j2s*
+                        curl -LOk https://github.com/BobHanson/java2script/raw/swingjs/releases/$3/net.sf.j2s_$3.zip
+                        mv net.sf.j2s_$2.zip net.sf.j2s_$NEWESTJ2S.zip
+                        unzip net.sf.j2s_$NEWESTJ2S.zip
+                        exit
+                    else
+                        echo "
+****************************************
+$4 is not a valid path. Please provide a valid POSIX path to the J2S Plugins, or leave it blank if you want the script to assume the Eclipse.app/eclipse directory is in the same directory as the script
+****************************************
+"
+                        exit
+                    fi
+                fi #No need for else since if they leave argument 4 (path) blank, then no need to cd since the script will just assume the user wants the work done in the same directory as the script
+
+
+
+                if [ -d "Eclipse.app" ]
+                then
+                    rm -rf Eclipse.app/Contents/Eclipse/dropins/net.sf.j2s*
+                    curl -LOk https://github.com/BobHanson/java2script/raw/swingjs/releases/$3/net.sf.j2s_$3.zip
+                    mv net.sf.j2s_$2.zip net.sf.j2s_$NEWESTJ2S.zip
+                    cp net.sf.j2s_$NEWESTJ2S.zip Eclipse.app/Contents/Eclipse/dropins/net.sf.j2s_$NEWESTJ2S.zip
+                    unzip net.sf.j2s_$NEWESTJ2S.zip -d Eclipse.app/Contents/Eclipse/dropins/
+                    rm net.sf.j2s_$NEWESTJ2S.zip
+                    exit
+
+                elif [ -d "eclipse" ]
+                then
+                    rm -rf eclipse/dropins/net.sf.j2s*
+                    curl -LOk https://github.com/BobHanson/java2script/raw/swingjs/releases/$3/net.sf.j2s_$3.zip
+                    mv net.sf.j2s_$2.zip net.sf.j2s_$NEWESTJ2S.zip
+                    cp net.sf.j2s_$NEWESTJ2S.zip eclipse/dropins/net.sf.j2s_$NEWESTJ2S.zip
+                    unzip net.sf.j2s_$NEWESTJ2S.zip -d eclipse/Contents/Eclipse/dropins/
+                    rm net.sf.j2s_$NEWESTJ2S.zip
+                    exit
+                fi
+
+            fi
+        else #Argument 3 is empty [Guaranteed user wants ./install-mac j2s -version [Check Eclipse Version, Don't Install Anything] with no path option (assume Eclipse is in the same directory as the script]
+
+            if [ -d "Eclipse.app" ]
+            then
+                cd Eclipse.app/Contents/Eclipse/dropins
+                CURRENTJ2S=$(ls *.zip)
+                CURRENTJ2S=${CURRENTJ2S::-4}
+                CURRENTJ2S=${CURRENTJ2S:11}
+                echo "J2s Version $CURRENTJ2S"
+                exit
+            elif [ -d "eclipse" ]
+            then
+                cd Eclipse.app/Contents/Eclipse/dropins
+                CURRENTJ2S=$(ls *.zip)
+                CURRENTJ2S=${CURRENTJ2S::-4}
+                CURRENTJ2S=${CURRENTJ2S:11}
+                echo "J2s Version $CURRENTJ2S"
+                exit
+            else
+                echo "
+****************************************
+Cannot find ${pwd}/Eclipse.app or ${pwd}/eclipse folder. Please specify your dropins folder to see the correct J2S version.
+****************************************
+                "
+            fi
+
         fi
+
     else
         echo "
 ****************************************
 Not a valid command. See README for instructions: (https://github.com/SwingJS/SwingJSUtils/blob/master/Mac/README.md)
 ****************************************
 "
+        exit
     fi
+
 elif [ $1 == "-swingjs" ]
 then
     echo "USER PICKED -swingjs -version"
