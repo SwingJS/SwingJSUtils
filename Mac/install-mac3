@@ -170,15 +170,15 @@ Mounting and copying from DMG volume file $BINARYNAME
                     ECLIPSEDISK=`diskutil list | grep Eclipse | awk '{print $6}'`
                     diskutil unmount /dev/$ECLIPSEDISK
                     rm $BINARYNAME
-                elif [ ${BINARYNAME} == ".gz" ]
+                elif [ $EXTENSION == ".gz" ]
                 then
                     echo "
 ****************************************
 Untarring $BINARYNAME
 ****************************************
 "
-                    tar xvf $BINARY
-                    rm $BINARY
+                    tar xvf $BINARYNAME
+                    rm $BINARYNAME
                 else
                     echo "invalid extension for downloaded file $BINARYNAME"
                 fi
