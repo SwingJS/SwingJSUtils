@@ -217,13 +217,17 @@ Not a valid command. See README for instructions: (https://github.com/SwingJS/Sw
 
 elif [ $1 == "-j2s" ]
 then
+    curl -O https://raw.githubusercontent.com/SwingJS/SwingJSUtils/master/latestj2s
+    NEWESTJ2S=`cat latestj2s`
+    rm latestj2s
+
     if [ $2 == "-version" ]
     then
         if [ ! -z "$3" ] #Argument 3 is not empty [1) User wants ./install-mac -j2s -version [check j2s version] with supplied path or 2) user actually wants to install j2s supplying the version for the 3rd argument]
         then
-            if [ -d "${3}" ] #Argument 3 a directory [User wants to check Eclipse -version in a specific directory without installing anything]
+            if [ -d "$3" ] #Argument 3 a directory [User wants to check Eclipse -version in a specific directory without installing anything]
             then
-                cd ${3}
+                cd $3
                 CURRENTJ2S=$(ls *.zip)
                 CURRENTJ2S=${CURRENTJ2S::-4}
                 CURRENTJ2S=${CURRENTJ2S:11}
@@ -231,11 +235,11 @@ then
                 exit
 
             else #User does not want to print the j2s version but wants to install it
-                if [ ! -z "${4}" ] #Argument 4 is not empty (this is where path would go), assume user wants to install Eclipse in the same directory as the script
+                if [ ! -z "$4" ] #Argument 4 is not empty (this is where path would go), assume user wants to install Eclipse in the same directory as the script
                 then
-                    if [ -d "${4}" ] #Argument 4 is a valid path
+                    if [ -d "$4" ] #Argument 4 is a valid path
                     then
-                        cd ${4}
+                        cd $4
                         rm -rf net.sf.j2s*
                         curl -LOk https://github.com/BobHanson/java2script/raw/swingjs/releases/$3/net.sf.j2s_$3.zip
                         mv net.sf.j2s_$2.zip net.sf.j2s_$NEWESTJ2S.zip
@@ -312,8 +316,14 @@ Not a valid command. See README for instructions: (https://github.com/SwingJS/Sw
         exit
     fi
 
+
 elif [ $1 == "-swingjs" ]
 then
+
+    curl -O "https://sourceforge.net/p/swingjs/code/HEAD/tree/trunk/src/SwingJS.properties?format=raw"
+    NEWESTJ2S=`grep "J2Score_Version" SwingJS.properties\?format=raw | grep -o '".*"' | sed 's/"//g'`
+    rm SwingJS.properties\?format=raw
+
     echo "USER PICKED -swingjs -version"
     if [ $2 == "-version" ]
     then
