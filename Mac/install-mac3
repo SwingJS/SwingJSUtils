@@ -242,7 +242,7 @@ then
                         cd $4
                         rm -rf net.sf.j2s*
                         curl -LOk https://github.com/BobHanson/java2script/raw/swingjs/releases/$3/net.sf.j2s_$3.zip
-                        mv net.sf.j2s_$2.zip net.sf.j2s_$NEWESTJ2S.zip
+                        mv net.sf.j2s_$3.zip net.sf.j2s_$NEWESTJ2S.zip
                         unzip net.sf.j2s_$NEWESTJ2S.zip
                         exit
                     else
@@ -261,7 +261,7 @@ $4 is not a valid path. Please provide a valid POSIX path to the J2S Plugins, or
                 then
                     rm -rf Eclipse.app/Contents/Eclipse/dropins/net.sf.j2s*
                     curl -LOk https://github.com/BobHanson/java2script/raw/swingjs/releases/$3/net.sf.j2s_$3.zip
-                    mv net.sf.j2s_$2.zip net.sf.j2s_$NEWESTJ2S.zip
+                    mv net.sf.j2s_$3.zip net.sf.j2s_$NEWESTJ2S.zip
                     cp net.sf.j2s_$NEWESTJ2S.zip Eclipse.app/Contents/Eclipse/dropins/net.sf.j2s_$NEWESTJ2S.zip
                     unzip net.sf.j2s_$NEWESTJ2S.zip -d Eclipse.app/Contents/Eclipse/dropins/
                     rm net.sf.j2s_$NEWESTJ2S.zip
@@ -271,7 +271,7 @@ $4 is not a valid path. Please provide a valid POSIX path to the J2S Plugins, or
                 then
                     rm -rf eclipse/dropins/net.sf.j2s*
                     curl -LOk https://github.com/BobHanson/java2script/raw/swingjs/releases/$3/net.sf.j2s_$3.zip
-                    mv net.sf.j2s_$2.zip net.sf.j2s_$NEWESTJ2S.zip
+                    mv net.sf.j2s_$3.zip net.sf.j2s_$NEWESTJ2S.zip
                     cp net.sf.j2s_$NEWESTJ2S.zip eclipse/dropins/net.sf.j2s_$NEWESTJ2S.zip
                     unzip net.sf.j2s_$NEWESTJ2S.zip -d eclipse/Contents/Eclipse/dropins/
                     rm net.sf.j2s_$NEWESTJ2S.zip
