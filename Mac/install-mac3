@@ -71,7 +71,7 @@ $4 is not a valid path. Please provide a valid POSIX path to install Eclipse, or
                 then
                     echo "
 ****************************************
-Eclipse.app/eclipse already exists in ${pwd}. Either delete the ${pwd}/Eclipse.app or ${pwd}/eclipse, or choose a different directory to install Eclipse
+Eclipse.app/eclipse already exists in $pwd. Either delete the $pwd/Eclipse.app or $pwd/eclipse, or choose a different directory to install Eclipse
 ****************************************
 "
                     exit
@@ -229,8 +229,8 @@ then
             then
                 cd $3
                 CURRENTJ2S=$(ls *.zip)
-                CURRENTJ2S=${CURRENTJ2S::-4}
                 CURRENTJ2S=${CURRENTJ2S:11}
+                CURRENTJ2S=${CURRENTJ2S:0:5}
                 echo "J2s Version $CURRENTJ2S"
                 exit
 
@@ -285,16 +285,16 @@ $4 is not a valid path. Please provide a valid POSIX path to the J2S Plugins, or
             then
                 cd Eclipse.app/Contents/Eclipse/dropins
                 CURRENTJ2S=$(ls *.zip)
-                CURRENTJ2S=${CURRENTJ2S::-4}
                 CURRENTJ2S=${CURRENTJ2S:11}
+                CURRENTJ2S=${CURRENTJ2S:0:5}
                 echo "J2s Version $CURRENTJ2S"
                 exit
             elif [ -d "eclipse" ]
             then
                 cd Eclipse.app/Contents/Eclipse/dropins
                 CURRENTJ2S=$(ls *.zip)
-                CURRENTJ2S=${CURRENTJ2S::-4}
                 CURRENTJ2S=${CURRENTJ2S:11}
+                CURRENTJ2S=${CURRENTJ2S:0:5}
                 echo "J2s Version $CURRENTJ2S"
                 exit
             else
