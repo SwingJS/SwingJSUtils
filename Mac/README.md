@@ -26,31 +26,31 @@ This script acts as both an installer for the correct Eclipse versions as well a
 ```
 $ ./install-mac -eclipse -version -latest
 ```
-===========
+---
 
 > I just want to see what version of Eclipse I am running, but my Eclipse directory is in another location
 
 ```
 $ ./install-mac -eclipse -version ~/path/to/parent/of/Eclipse.app
 ```
-===========
+---
 
 **Note, on older versions, Eclipse might get packaged as eclipse/ rather than Eclipse.app/Contents/Eclipse/**
 
-===========
+---
 > I just want to see what version of Eclipse I am running that I installed in this directory using this script.
 
 ```
 $ ./install-mac -eclipse -version ~/path/to/parent/of/Eclipse.app
 ```
-===========
+---
 
 
 > I just want to install Java2Script plugins version 3.1.1 after I installed Eclipse using this script in this directory (i.e. I never provided a path to another directory when installing Eclipse)
 ```
 $ ./install-mac -j2s -version 3.1.1
 ```
-===========
+---
 
 
 
@@ -58,19 +58,19 @@ $ ./install-mac -j2s -version 3.1.1
 ```
 $ ./install-mac -j2s -version /path/to/eclipse/dropins/folder/
 ```
-===========
+---
 
 > I want to install the latest SwingJS runtime and the Eclipse.app directory not in the same directory as the install-mac script.
 ```
 $ ./install-mac -swingjs -version latest /path/to/eclipse/dropins/folder/
 ```
-===========
+---
 
 > I want to see what version of SwingJS I am running and I see that Eclipse.app is in the same directory as the install script.
 ```
 $ ./install-mac -swingjs -version
 ```
-===========
+---
 
 ----------
 ## Clean Install
