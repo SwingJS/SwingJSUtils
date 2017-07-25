@@ -7,24 +7,73 @@
 The installation command is as follows:
 
 ```
-./install-linux [REQUIRED ARGUMENT 1] [REQUIRED ARGUMENT 2] [OPTIONAL ARGUMENT 3]
+./install-linux [ARGUMENT 1] -version [ARGUMENT 2] [OPTIONAL PATH]
 ```
 
 | 	ARGUMENT   | OPTIONS                                   				| DESCRIPTION |
 | ------------- | ------------------------------------------------------ | ------------ |
-| ARGUMENT 1  | [`swingjs`]/[`no-swingjs`] | If `swingjs` is selected, the script will install the relevant Java2Script plugins compatible with SwingJS. If `no-swing` is selected, the script will ignore compatibility with the SwingJS runtime and will instead rely on the values supplied in ARGUMENT 2 for the correct version |
-| ARGUMENT 2  | [`latest`]/[`version#`] | `latest` will install the latest version of the Java2Script plugin. However, if the user specifies a specific version number, the install script will install that specific version of the J2S plugin. |
-| executable ARGUMENT 3 | [/Users/username/.../desired_install_path] | The user can specify where they want to install Eclipse and the relevant plugins. If left blank, the script will assume the user wants to install Eclipse in the same directory as the script, or that Eclipse already exists in the same directory **Note: if you are just updating the plugins, then you must specify where the root of the Eclipse installation is (i.e. the parent level of the eclipse executable)** |
+| ARGUMENT 1  | [`-eclipse`]/[`-j2s`]/[`-swingjs`] | All the potential software components this script can install/check. `-eclipse` will install Eclipse IDE, `-j2s` will install the Java2Script plugins (.jar files) into the dropins and `-swingjs` install just net.sf.j2s.core.jar into dropins as well as copy the SwingJS ZIP files for new or existing projects in a folder called SwingJS in the dropins folder. |
+| ARGUMENT 2  | [`latest`]/[`version#`] | `latest` will install the latest version of whatever the user picked in ARGUMENT 1. The user can also specify a specific version of ARGUMENT 1 they want to install. Leave this blank to see the version of ARGUMENT 1 that is installed.
+| OPTIONAL PATH | [/Users/username/.../desired/install/path] | The user can specify where they want to install ARGUMENT 1. If left blank, the script will assume all operations in the directory where this script is stored.
 
 This script acts as both an installer for the correct Eclipse versions as well as the Java2Script plugins. However, if Eclipse is already installed in the directory specified (or unspecified), the install script will check to see if the Java2Script plugins in the dropins folder need to be updated or not (Either if the latest version has been updated on Github, or if the user specifies a version they want)
 
+
+### Use cases
+
+> I just want to install the latest version of Eclipse in the same directory as this script.
+
+```
+$ ./install-linux -eclipse -version -latest
+```
+---
+
+> I just want to see what version of Eclipse I am running, but my Eclipse directory is in another location
+
+```
+$ ./install-linux -eclipse -version ~/path/to/parent/of/eclipse_root
+```
+
+---
+> I just want to see what version of Eclipse I am running that I installed in this directory using this script.
+
+```
+$ ./install-linux -eclipse -version ~/path/to/parent/of/eclipse_root
+```
+---
+
+
+> I just want to install Java2Script plugins version 3.1.1 after I installed Eclipse using this script in this directory (i.e. I never provided a path to another directory when installing Eclipse)
+```
+$ ./install-linux -j2s -version 3.1.1
+```
+---
+
+
+
+> I want to see what version of the Java2Script Plugins I am running, but I have a really customized location on my computer.
+```
+$ ./install-linux -j2s -version /path/to/eclipse/dropins/folder/
+```
+---
+
+> I want to install the latest SwingJS runtime and the eclipse root directory not in the same directory as the install-linux script.
+```
+$ ./install-linux -swingjs -version latest /path/to/eclipse/dropins/folder/
+```
+---
+
+> I want to see what version of SwingJS I am running and I see that eclipse root directory is in the same directory as the install script.
+```
+$ ./install-linux -swingjs -version
+```
+---
 
 ----------
 ## Clean Install
 
 ```
-./clean-unix [OPTIONAL] location/of/Eclipse.app [REQUIRED] location/of/eclipse/workspace [REQUIRED] location/of/SwingJS/ant/build.xml
+./clean-unix [OPTIONAL] location/of/eclipse/root/directory [REQUIRED] location/of/eclipse/workspace [REQUIRED] location/of/SwingJS/ant/build.xml
 ```
 
 If no path is supplied, the script will assume location of the eclipse installation is in the same directory as the clean script. 
-
