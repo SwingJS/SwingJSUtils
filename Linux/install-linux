@@ -79,7 +79,7 @@ Installing Eclipse 4.7 Oxygen to $(pwd)
                 then
                     echo "
 ****************************************
-Installing Eclipse 4.6 Neon to $SCRIPTDIR
+Installing Eclipse 4.6 Neon to $(pwd)
 ****************************************
 "
                     INSTALLLINK=http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/neon/3/eclipse-jee-neon-3-linux-gtk-x86_64.tar.gz
@@ -88,7 +88,7 @@ Installing Eclipse 4.6 Neon to $SCRIPTDIR
                 then
                     echo "
 ****************************************
-Installing Eclipse 4.5 Mars to $SCRIPTDIR
+Installing Eclipse 4.5 Mars to $(pwd)
 ****************************************
 "
                     INSTALLLINK=http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/mars/2/eclipse-jee-mars-2-linux-gtk-x86_64.tar.gz
@@ -97,7 +97,7 @@ Installing Eclipse 4.5 Mars to $SCRIPTDIR
                 then
                     echo "
 ****************************************
-Installing Eclipse 4.4 Luna to $SCRIPTDIR
+Installing Eclipse 4.4 Luna to $(pwd)
 ****************************************
 "
                     INSTALLLINK=http://mirror.csclub.uwaterloo.ca/eclipse/technology/epp/downloads/release/luna/SR2/eclipse-jee-luna-SR2-linux-gtk-x86_64.tar.gz
@@ -106,7 +106,7 @@ Installing Eclipse 4.4 Luna to $SCRIPTDIR
                 then
                     echo "
 ****************************************
-Installing Eclipse 4.3 Kepler to $SCRIPTDIR
+Installing Eclipse 4.3 Kepler to $(pwd)
 ****************************************
 "
                     INSTALLLINK=http://mirror.csclub.uwaterloo.ca/eclipse/technology/epp/downloads/release/kepler/SR2/eclipse-jee-kepler-SR2-linux-gtk-x86_64.tar.gz
@@ -115,7 +115,7 @@ Installing Eclipse 4.3 Kepler to $SCRIPTDIR
                 then
                     echo "
 ****************************************
-Installing Eclipse 4.2 Juno to $SCRIPTDIR
+Installing Eclipse 4.2 Juno to $(pwd)
 ****************************************
 "
                     INSTALLLINK=http://mirror.csclub.uwaterloo.ca/eclipse/technology/epp/downloads/release/juno/SR2/eclipse-jee-juno-SR2-linux-gtk-x86_64.tar.gz
