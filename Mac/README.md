@@ -33,8 +33,6 @@ $ ./install-mac -eclipse -version -latest
 ```
 $ ./install-mac -eclipse -version ~/path/to/parent/of/Eclipse.app
 ```
----
-
 **Note, on older versions, Eclipse might get packaged as eclipse/ rather than Eclipse.app/Contents/Eclipse/**
 
 ---
