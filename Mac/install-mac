@@ -237,6 +237,9 @@ then
                     if [ -d "$4" ] #Argument 4 is a valid path
                     then
                         cd $4
+                        curl -O https://raw.githubusercontent.com/SwingJS/SwingJSUtils/master/latestj2s
+                        NEWESTJ2S=`cat latestj2s`
+                        rm latestj2s
                         rm -rf net.sf.j2s*
                         curl -LOk https://github.com/BobHanson/java2script/raw/swingjs/releases/$3/net.sf.j2s_$3.zip
                         mv net.sf.j2s_$3.zip net.sf.j2s_$NEWESTJ2S.zip
@@ -257,6 +260,9 @@ $4 is not a valid path. Please provide a valid POSIX path to the J2S Plugins, or
 
                 if [ -d "Eclipse.app" ]
                 then
+                    curl -O https://raw.githubusercontent.com/SwingJS/SwingJSUtils/master/latestj2s
+                    NEWESTJ2S=`cat latestj2s`
+                    rm latestj2s
                     rm -rf Eclipse.app/Contents/Eclipse/dropins/net.sf.j2s*
                     curl -LOk https://github.com/BobHanson/java2script/raw/swingjs/releases/$3/net.sf.j2s_$3.zip
                     mv net.sf.j2s_$3.zip net.sf.j2s_$NEWESTJ2S.zip
@@ -267,6 +273,9 @@ $4 is not a valid path. Please provide a valid POSIX path to the J2S Plugins, or
 
                 elif [ -d "eclipse" ]
                 then
+                    curl -O https://raw.githubusercontent.com/SwingJS/SwingJSUtils/master/latestj2s
+                    NEWESTJ2S=`cat latestj2s`
+                    rm latestj2s
                     rm -rf eclipse/dropins/net.sf.j2s*
                     curl -LOk https://github.com/BobHanson/java2script/raw/swingjs/releases/$3/net.sf.j2s_$3.zip
                     mv net.sf.j2s_$3.zip net.sf.j2s_$NEWESTJ2S.zip
