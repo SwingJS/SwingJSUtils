@@ -231,7 +231,7 @@ then
                 CURRENTJ2S=$(ls *.zip)
                 CURRENTJ2S=${CURRENTJ2S:11}
                 CURRENTJ2S=${CURRENTJ2S:0:5}
-                echo "J2s Version $CURRENTJ2S"
+                echo "J2S Version $CURRENTJ2S"
                 exit
 
             else #User does not want to print the j2s version but wants to install it
@@ -287,7 +287,7 @@ $4 is not a valid path. Please provide a valid POSIX path to the J2S Plugins, or
                 CURRENTJ2S=$(ls *.zip)
                 CURRENTJ2S=${CURRENTJ2S:11}
                 CURRENTJ2S=${CURRENTJ2S:0:5}
-                echo "J2s Version $CURRENTJ2S"
+                echo "J2S Version $CURRENTJ2S"
                 exit
             elif [ -d "eclipse" ]
             then
