@@ -70,7 +70,7 @@ eclipse already exists in $(pwd). Either delete the $(pwd)/eclipse, or choose a 
                 then
                     echo "
 ****************************************
-Installing Eclipse 4.7 Oxygen to $SCRIPTDIR
+Installing Eclipse 4.7 Oxygen to $(pwd)
 ****************************************
 "
                     INSTALLLINK=http://mirror.csclub.uwaterloo.ca/eclipse/technology/epp/downloads/release/oxygen/R/eclipse-jee-oxygen-R-linux-gtk-x86_64.tar.gz
