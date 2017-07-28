@@ -1,0 +1,148 @@
+@echo off
+rem installSwingJS.bat eclipse|swingjs [-ver [latest|3.1.1|etc...]] [-dir directory] [-32|-64]
+set PROG=INSTALL-help
+set VERSION=latest
+set LATEST_ECLIPSE=oxygen
+set DIRECTORY=
+set WIN=64
+set UNZIPEXE=unzip
+set WORKINGDIR=%USERPROFILE%
+set UNZIPSOURCE=https://sourceforge.net/p/swingjs/code/HEAD/tree/trunk/dist/unzip-5.51-1.exe?format=raw
+goto CHECKPOWERSHELL
+
+rem process command line variables
+
+:NEXT
+shift
+:LOOP
+if "%1%"=="" goto DONE
+if %1%==-ver goto VERSION
+if %1%==-dir goto DIRECT
+if %1%==-32 goto WIN32
+if %1%==-64 goto WIN64
+set PROG=INSTALL%1%
+goto NEXT
+
+:VERSION
+shift
+set VERSION=%1%
+goto NEXT
+
+:DIRECT
+shift
+set DIRECTORY=%1%
+goto NEXT
+
+:WIN64
+set WIN=64
+goto NEXT
+
+:WIN32
+set WIN=32
+goto NEXT
+
+:DONE
+
+rem now do the installation or version checking
+
+if "%PROG%"=="INSTALLeclipse" goto CHECKJAVA
+rem if "%PROG%"=="INSTALLj2s" goto CHECKUNZIP
+if "%PROG%"=="INSTALLswingjs" goto CHECKUNZIP
+goto HELP
+
+:INSTALLeclipse
+rem Install Eclipse. The unzipping will create its own eclipse directory
+if "%DIRECTORY%"=="" set DIRECTORY=.
+if "%VERSION%"=="" goto INSTALLeclipseCHECKVERSION
+if %VERSION%==latest set VERSION=%LATEST_ECLIPSE%
+echo %PROG% -ver %VERSION% -%WIN% -dir %DIRECTORY%
+set TARGET=%WORKINGDIR%\eclipse-%VERSION%-%WIN%.zip
+if not exist %TARGET% (
+  if WIN==64 set WIN=32-x86_64
+  set DOWNLOAD=http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/%VERSION%/R/eclipse-cpp-%VERSION%-R-win%WIN%.zip
+  powershell -Command (new-object System.Net.WebClient).DownloadFile('%DOWNLOAD%','%TARGET%')
+)
+echo unzipping %TARGET% into %DIRECTORY%
+%UNZIPEXE% %TARGET% -d %DIRECTORY%
+:INSTALLeclipseCHECKVERSION
+type %DIRECTORY%\eclipse\.eclipseProduct
+GOTO END
+
+:INSTALLswingjs
+rem Install SwingJS in the eclipse plugins directory
+rem Q: Should we delete all net.sf.j2s files there first?
+rem Unfortunately "latest" tag will not work
+goto CHECKECLIPSEDIR
+:INSTALLswingjsOK
+set DIRECTORY=%DIRECTORY%\dropins
+if "%VERSION%"=="" goto INSTALLswingjsCHECKVERSION
+echo %PROG% -ver %VERSION% -dir %DIRECTORY%
+set TARGET=%DIRECTORY%\SwingJS_full.zip
+if %VERSION%==latest (
+  set DIR=trunk
+) else (
+  set DIR=tags/%VERSION%
+)
+set DOWNLOAD=https://sourceforge.net/p/swingjs/code/HEAD/tree/%DIR%/dist/SwingJS_full.zip?format=raw
+powershell -Command (new-object System.Net.WebClient).DownloadFile('%DOWNLOAD%','%TARGET%')
+echo unzipping %TARGET% into %DIRECTORY%
+%UNZIPEXE% %TARGET% -d %DIRECTORY%
+:INSTALLswingjsCHECKVERSION
+type %DIRECTORY%\readme*.properties|find "J2S."
+GOTO END
+
+:CHECKPOWERSHELL
+rem Check to see that we can use PowerShell
+where powershell >nul 2>&1
+IF not errorlevel 1 GOTO LOOP 
+echo You need PowerShell to use this installation script
+GOTO END
+
+:CHECKUNZIP
+rem Check to see that we have unzip.exe installed
+if "%VERSION%"=="" goto %PROG%
+echo... checking for UNZIP.EXE
+where %UNZIPEXE% >nul 2>&1
+IF not errorlevel 1 GOTO %PROG%
+set /P c=We utilize GNU unzip.exe to unzip files. Install now? [Y/N]?
+IF /I "%c%" EQU "N" GOTO END
+echo installing GNU unzip.exe
+set TARGET=%WORKINGDIR%\unzip_installer.exe
+powershell -Command (new-object System.Net.WebClient).DownloadFile('%UNZIPSOURCE%','%TARGET%')
+%TARGET%
+set UNZIPEXE=unzip.exe
+goto %PROG%
+
+:CHECKJAVA
+rem Check to see that we have Java, and what version it is
+where java >nul 2>&1
+IF not errorlevel 1 GOTO CHECKJAVA64
+echo No Java installed. Please install Java first
+GOTO END
+:CHECKJAVA64
+java -d64 -version >nul 2>&1
+IF errorlevel 1 set WIN=32
+goto CHECKUNZIP
+
+:CHECKECLIPSEDIR
+rem Check to see that we have eclipse in the designated directory or its eclipse subdirectory
+if "%DIRECTORY%"=="" set DIRECTORY=.
+if exist %DIRECTORY%\eclipse.exe goto %PROG%OK
+set DIRECTORY=%DIRECTORY%\eclipse
+if exist %DIRECTORY%\eclipse.exe goto %PROG%OK
+echo eclipse.exe was not found in %DIRECTORY%
+goto END
+
+:HELP
+echo primary options are eclipse or swingjs
+echo secondary options are -ver and -dir:
+echo -ver v  version to install or just -ver to check version only
+echo         for eclipse versions, use luna, mars, neon, oxygen, photon, etc.
+echo -dir d  directory to install into (containing eclipse directory) -- default: current directory
+echo.
+echo for example:
+echo.
+echo    installswingjs eclipse -ver neon -dir c:\temp
+echo    installswingjs swingjs -ver latest -dir c:\temp
+
+:END
