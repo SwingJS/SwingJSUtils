@@ -47,145 +47,114 @@ GOTO GETLINK64BITECLIPSE
 GOTO END
 
 :GETLINK64BITECLIPSE
-IF [%VERSION%]==[latest] GOTO ECLIPSE64OXYGEN
-IF [%VERSION%]==[oxygen] GOTO ECLIPSE64OXYGEN
-IF [%VERSION%]==[Oxygen] GOTO ECLIPSE64OXYGEN
-IF [%VERSION%]==[4.7] GOTO ECLIPSE64OXYGEN
-IF [%VERSION%]==[neon] GOTO ECLIPSE64NEON
-IF [%VERSION%]==[Neon] GOTO ECLIPSE64NEON
-IF [%VERSION%]==[4.6] GOTO ECLIPSE64NEON
-IF [%VERSION%]==[mars] GOTO ECLIPSE64MARS
-IF [%VERSION%]==[Mars] GOTO ECLIPSE64MARS
-IF [%VERSION%]==[4.5] GOTO ECLIPSE64MARS
-IF [%VERSION%]==[luna] GOTO ECLIPSE64LUNA
-IF [%VERSION%]==[Luna] GOTO ECLIPSE64LUNA
-IF [%VERSION%]==[4.4] GOTO ECLIPSE64LUNA
-IF [%VERSION%]==[kepler] GOTO ECLIPSE64KEPLER
-IF [%VERSION%]==[Kepler] GOTO ECLIPSE64KEPLER
-IF [%VERSION%]==[4.3] GOTO ECLIPSE64KEPLER
-IF [%VERSION%]==[juno] GOTO ECLIPSE64JUNO
-IF [%VERSION%]==[Juno] GOTO ECLIPSE64JUNO
-IF [%VERSION%]==[4.2] GOTO ECLIPSE64JUNO
+IF [%3]==[latest] GOTO ECLIPSE64OXYGEN
+IF [%3]==[oxygen] GOTO ECLIPSE64OXYGEN
+IF [%3]==[Oxygen] GOTO ECLIPSE64OXYGEN
+IF [%3]==[4.7] GOTO ECLIPSE64OXYGEN
+IF [%3]==[neon] GOTO ECLIPSE64NEON
+IF [%3]==[Neon] GOTO ECLIPSE64NEON
+IF [%3]==[4.6] GOTO ECLIPSE64NEON
+IF [%3]==[mars] GOTO ECLIPSE64MARS
+IF [%3]==[Mars] GOTO ECLIPSE64MARS
+IF [%3]==[4.5] GOTO ECLIPSE64MARS
+IF [%3]==[luna] GOTO ECLIPSE64LUNA
+IF [%3]==[Luna] GOTO ECLIPSE64LUNA
+IF [%3]==[4.4] GOTO ECLIPSE64LUNA
+IF [%3]==[kepler] GOTO ECLIPSE64KEPLER
+IF [%3]==[Kepler] GOTO ECLIPSE64KEPLER
+IF [%3]==[4.3] GOTO ECLIPSE64KEPLER
+IF [%3]==[juno] GOTO ECLIPSE64JUNO
+IF [%3]==[Juno] GOTO ECLIPSE64JUNO
+IF [%3]==[4.2] GOTO ECLIPSE64JUNO
+echo "Invalid version number"
+GOTO END
+
+
+:GETLINK32BITECLIPSE
+IF [%3]==[latest] GOTO ECLIPSE32OXYGEN
+IF [%3]==[oxygen] GOTO ECLIPSE32OXYGEN
+IF [%3]==[Oxygen] GOTO ECLIPSE32OXYGEN
+IF [%3]==[4.7] GOTO ECLIPSE32OXYGEN
+IF [%3]==[neon] GOTO ECLIPSE32NEON
+IF [%3]==[Neon] GOTO ECLIPSE32NEON
+IF [%3]==[4.6] GOTO ECLIPSE32NEON
+IF [%3]==[mars] GOTO ECLIPSE32MARS
+IF [%3]==[Mars] GOTO ECLIPSE32MARS
+IF [%3]==[4.5] GOTO ECLIPSE32MARS
+IF [%3]==[luna] GOTO ECLIPSE32LUNA
+IF [%3]==[Luna] GOTO ECLIPSE32LUNA
+IF [%3]==[4.4] GOTO ECLIPSE32LUNA
+IF [%3]==[kepler] GOTO ECLIPSE32KEPLER
+IF [%3]==[Kepler] GOTO ECLIPSE32KEPLER
+IF [%3]==[4.3] GOTO ECLIPSE32KEPLER
+IF [%3]==[juno] GOTO ECLIPSE32JUNO
+IF [%3]==[Juno] GOTO ECLIPSE32JUNO
+IF [%3]==[4.2] GOTO ECLIPSE32JUNO
 echo "Invalid version number"
 GOTO END
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-IF [%VERSION%]==[latest] GOTO ECLIPSEOXYGEN
-IF [%VERSION%]==[oxygen] GOTO ECLIPSEOXYGEN
-IF [%VERSION%]==[Oxygen] GOTO ECLIPSEOXYGEN
-IF [%VERSION%]==[4.7] GOTO ECLIPSEOXYGEN
-IF [%VERSION%]==[neon] GOTO ECLIPSENEON
-IF [%VERSION%]==[Neon] GOTO ECLIPSENEON
-IF [%VERSION%]==[4.6] GOTO ECLIPSENEON
-IF [%VERSION%]==[mars] GOTO ECLIPSEMARS
-IF [%VERSION%]==[Mars] GOTO ECLIPSEMARS
-IF [%VERSION%]==[4.5] GOTO ECLIPSEMARS
-IF [%VERSION%]==[luna] GOTO ECLIPSELUNA
-IF [%VERSION%]==[Luna] GOTO ECLIPSELUNA
-IF [%VERSION%]==[4.4] GOTO ECLIPSELUNA
-IF [%VERSION%]==[kepler] GOTO ECLIPSEKEPLER
-IF [%VERSION%]==[Kepler] GOTO ECLIPSEKEPLER
-IF [%VERSION%]==[4.3] GOTO ECLIPSEKEPLER
-IF [%VERSION%]==[juno] GOTO ECLIPSEJUNO
-IF [%VERSION%]==[Juno] GOTO ECLIPSEJUNO
-IF [%VERSION%]==[4.2] GOTO ECLIPSEJUNO
-
-
-
-:ECLIPSEOXYGEN
-IF WIN==64 SET BINARYLINK "http://mirror.csclub.uwaterloo.ca/eclipse/technology/epp/downloads/release/oxygen/R/eclipse-jee-oxygen-R-win32-x86_64.zip"
-IF WIN==32 SET BINARYLINK "http://mirror.math.princeton.edu/pub/eclipse//technology/epp/downloads/release/oxygen/R/eclipse-jee-oxygen-R-win32.zip"
+:ECLIPSE64OXYGEN
+set BINARYLINK "http://mirror.csclub.uwaterloo.ca/eclipse/technology/epp/downloads/release/oxygen/R/eclipse-jee-oxygen-R-win32-x86_64.zip"
+set BINARYNAME "oxygen.zip"
 GOTO INSTALLECLIPSE
 
-:ECLIPSENEON
-IF WIN==64 SET BINARYLINK "http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/neon/3/eclipse-jee-neon-3-win32-x86_64.zip"
-IF WIN==32 SET BINARYLINK "http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/neon/3/eclipse-jee-neon-3-win32.zip"
+:ECLIPSE64NEON
+set BINARYLINK "http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/neon/3/eclipse-jee-neon-3-win32-x86_64.zip"
+set BINARYNAME "neon.zip"
 GOTO INSTALLECLIPSE
 
-:ECLIPSEMARS
-IF WIN==64 SET BINARYLINK "http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/mars/2/eclipse-jee-mars-2-win32-x86_64.zip"
-IF WIN==32 SET BINARYLINK "http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/mars/2/eclipse-jee-mars-2-win32.zip"
+:ECLIPSE64MARS
+set BINARYLINK "http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/mars/2/eclipse-jee-mars-2-win32-x86_64.zip"
+set BINARYNAME "mars.zip"
 GOTO INSTALLECLIPSE
 
-:ECLIPSELUNA
-IF WIN==64 SET BINARYLINK "http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/luna/SR2/eclipse-jee-luna-SR2-win32-x86_64.zip"
-IF WIN==32 SET BINARYLINK "http://mirror.csclub.uwaterloo.ca/eclipse/technology/epp/downloads/release/luna/SR2/eclipse-jee-luna-SR2-win32.zip"
+:ECLIPSE64LUNA
+set BINARYLINK "http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/luna/SR2/eclipse-jee-luna-SR2-win32-x86_64.zip"
+set BINARYNAME "luna.zip"
 GOTO INSTALLECLIPSE
 
-:ECLIPSEKEPLER
-IF WIN==64 SET BINARYLINK "http://mirror.csclub.uwaterloo.ca/eclipse/technology/epp/downloads/release/kepler/SR2/eclipse-jee-kepler-SR2-win32-x86_64.zip"
-IF WIN==32 SET BINARYLINK "http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/kepler/SR2/eclipse-jee-kepler-SR2-win32.zip"
+:ECLIPSE64KEPLER
+set BINARYLINK "http://mirror.csclub.uwaterloo.ca/eclipse/technology/epp/downloads/release/kepler/SR2/eclipse-jee-kepler-SR2-win32-x86_64.zip"
+set BINARYNAME "kepler.zip"
 GOTO INSTALLECLIPSE
 
-:ECLIPSEJUNO
-IF WIN==64 SET BINARYLINK "http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/juno/SR2/eclipse-jee-juno-SR2-win32-x86_64.zip"
-IF WIN==32
-
-SET BINARYNAME "juno.zip"
+:ECLIPSE64JUNO
+set BINARYLINK "http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/juno/SR2/eclipse-jee-juno-SR2-win32-x86_64.zip"
+set BINARYNAME "juno.zip"
 GOTO INSTALLECLIPSE
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
 :ECLIPSE32OXYGEN
-SET BINARYLINK 
-SET BINARYNAME "oxygen.zip"
+set BINARYLINK "http://mirror.math.princeton.edu/pub/eclipse//technology/epp/downloads/release/oxygen/R/eclipse-jee-oxygen-R-win32.zip"
+set BINARYNAME "oxygen.zip"
 GOTO INSTALLECLIPSE
 
 :ECLIPSE32NEON
-
-SET BINARYNAME "neon.zip"
+set BINARYLINK "http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/neon/3/eclipse-jee-neon-3-win32.zip"
+set BINARYNAME "neon.zip"
 GOTO INSTALLECLIPSE
 
 :ECLIPSE32MARS
-
-SET BINARYNAME "mars.zip"
+set BINARYLINK "http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/mars/2/eclipse-jee-mars-2-win32.zip"
+set BINARYNAME "mars.zip"
 GOTO INSTALLECLIPSE
 
 :ECLIPSE32LUNA
-
-SET BINARYNAME "luna.zip"
+set BINARYLINK "http://mirror.csclub.uwaterloo.ca/eclipse/technology/epp/downloads/release/luna/SR2/eclipse-jee-luna-SR2-win32.zip"
+set BINARYNAME "luna.zip"
 GOTO INSTALLECLIPSE
 
 :ECLIPSE32KEPLER
-
-SET BINARYNAME "kepler.zip"
+set BINARYLINK "http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/kepler/SR2/eclipse-jee-kepler-SR2-win32.zip"
+set BINARYNAME "kepler.zip"
 GOTO INSTALLECLIPSE
 
 :ECLIPSE32JUNO
-SET BINARYLINK "http://mirror.csclub.uwaterloo.ca/eclipse/technology/epp/downloads/release/juno/SR2/eclipse-jee-juno-SR2-win32.zip.zip"
-SET BINARYNAME "juno.zip"
+set BINARYLINK "http://mirror.csclub.uwaterloo.ca/eclipse/technology/epp/downloads/release/juno/SR2/eclipse-jee-juno-SR2-win32.zip.zip"
+set BINARYNAME "juno.zip"
 GOTO INSTALLECLIPSE
 
 
