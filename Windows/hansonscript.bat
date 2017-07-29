@@ -120,7 +120,7 @@ where %UNZIPEXE% >nul 2>&1
 IF not errorlevel 1 GOTO %PROG%
 
 IF %UNZIPTYPE%==stahl (
-  powershell -Command (new-object System.Net.WebClient).DownloadFile('https://raw.githubusercontent.com/SwingJS/SwingJSUtils/master/Windows/Unzip_License','%cd%\Unzip_License')
+  powershell -Command (new-object System.Net.WebClient).DownloadFile('https://raw.githubusercontent.com/SwingJS/SwingJSUtils/master/Windows/Unzip_License','Unzip_License')
   powershell -Command (new-object System.Net.WebClient).DownloadFile('http://stahlworks.com/dev/unzip.exe','stahlworksunzip.exe')
   START notepad Unzip_License
 ) else (
