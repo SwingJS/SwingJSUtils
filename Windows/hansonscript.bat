@@ -76,6 +76,7 @@ IF %WIN%==64 set WIN=32-x86_64 SET DOWNLOAD=http://eclipse.mirror.rafal.ca/techn
 
 IF exist %TARGET% GOTO SKIPDOWNLOADECLIPSE
 powershell -Command (new-object System.Net.WebClient).DownloadFile('%DOWNLOAD%','%TARGET%')
+ECHO YOLO
 
 :SKIPDOWNLOADECLIPSE
 echo unzipping %TARGET% into %DIRECTORY%
