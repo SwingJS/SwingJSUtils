@@ -1,8 +1,9 @@
 @echo off
+setlocal enabledelayedexpansion
 REM installSwingJS.bat eclipse|swingjs [-ver [latest|3.1.1|etc...]] [-dir directory] [-32|-64]
 SET PROG=INSTALL-help
 SET VERSION=latest
-SET LATEST_ECLIPSE=oxygen
+REM SET LATEST_ECLIPSE=oxygen
 SET DIRECTORY=
 SET WIN=64
 SET UNZIPEXE=stahlworksunzip.exe
@@ -30,8 +31,8 @@ SET JUNOLINK32=http://mirror.math.princeton.edu/pub/eclipse//technology/epp/down
 
 SET /P c=We utilize Stahl Work's Unzip.exe to unzip files. Install now? [Y/N]?
 IF /I "%c%" EQU "N" GOTO END
-bitsadmin /transfer unziplicense /priority high https://raw.githubusercontent.com/SwingJS/SwingJSUtils/master/Windows/Unzip_License %cd%\Unzip_License
-bitsadmin /transfer unzip /priority high http://stahlworks.com/dev/unzip.exe %cd%\stahlworksunzip.exe
+powershell -Command (new-object System.Net.WebClient).DownloadFile('https://raw.githubusercontent.com/SwingJS/SwingJSUtils/master/Windows/Unzip_License','%cd%\Unzip_License')
+powershell -Command (new-object System.Net.WebClient).DownloadFile('http://stahlworks.com/dev/unzip.exe','%cd%\stahlworksunzip.exe')
 START notepad %cd%\Unzip_License
 
 
