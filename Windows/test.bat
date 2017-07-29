@@ -1,3 +1,4 @@
+@echo off
 :NEXT
 SHIFT
 :LOOP
