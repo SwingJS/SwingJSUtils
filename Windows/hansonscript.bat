@@ -74,12 +74,12 @@ GOTO NEXT
 
 REM now do the installation or version checking
 
-IF "%PROG%"=="INSTALLECLIPSE" GOTO CHECKJAVA
+IF "%PROG%"=="INSTALLeclipse" GOTO CHECKJAVA
 REM IF "%PROG%"=="INSTALLj2s" GOTO %PROG%
-IF "%PROG%"=="INSTALLSWINGJS" GOTO %PROG%
+IF "%PROG%"=="INSTALLswingjs" GOTO %PROG%
 GOTO HELP
 
-:INSTALLECLIPSE
+:INSTALLeclipse
 REM Install Eclipse. The unzipping will create its own eclipse directory
 IF "%DIRECTORY%"=="" SET DIRECTORY=.
 IF "%VERSION%"=="" GOTO INSTALLECLIPSECHECKVERSION
@@ -165,7 +165,7 @@ GOTO END
 
 
 
-:INSTALLSWINGJS
+:INSTALLswingjs
 REM Install SwingJS in the eclipse plugins directory
 REM Q: Should we delete all net.sf.j2s files there first?
 REM Unfortunately "latest" tag will not work
