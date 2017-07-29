@@ -1,4 +1,5 @@
 @echo off
+setlocal enabledelayedexpansion
 REM installSwingJS.bat eclipse|swingjs [-ver [latest|3.1.1|etc...]] [-dir directory] [-32|-64]
 SET PROG=INSTALL-help
 SET VERSION=latest
