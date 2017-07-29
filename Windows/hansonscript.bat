@@ -1,5 +1,5 @@
 @echo off
-rem installSwingJS.bat eclipse|swingjs [-ver [latest|3.1.1|etc...]] [-dir directory] [-32|-64]
+REM installSwingJS.bat eclipse|swingjs [-ver [latest|3.1.1|etc...]] [-dir directory] [-32|-64]
 SET PROG=INSTALL-help
 SET VERSION=latest
 SET LATEST_ECLIPSE=oxygen
@@ -37,7 +37,7 @@ start notepad %cd%\Unzip_License
 
 GOTO CHECKPOWERSHELL
 
-rem process command line variables
+REM process command line variables
 
 :NEXT
 SHIFT
@@ -53,32 +53,36 @@ GOTO NEXT
 :VERSION
 SHIFT
 SET VERSION=%1%
+ECHO %VERSION%
 GOTO NEXT
 
 :DIRECT
 SHIFT
 SET DIRECTORY=%1%
+ECHO %DIRECTORY%
 GOTO NEXT
 
 :WIN64
 SET WIN=64
+ECHO %WIN%
 GOTO NEXT
 
 :WIN32
 SET WIN=32
+ECHO %WIN%
 GOTO NEXT
 
 :DONE
 
-rem now do the installation or version checking
+REM now do the installation or version checking
 
 if "%PROG%"=="INSTALLECLIPSE" GOTO CHECKJAVA
-rem if "%PROG%"=="INSTALLj2s" GOTO CHECKUNZIP
+REM if "%PROG%"=="INSTALLj2s" GOTO CHECKUNZIP
 if "%PROG%"=="INSTALLSWINGJS" GOTO CHECKUNZIP
 GOTO HELP
 
 :INSTALLECLIPSE
-rem Install Eclipse. The unzipping will create its own eclipse directory
+REM Install Eclipse. The unzipping will create its own eclipse directory
 if "%DIRECTORY%"=="" SET DIRECTORY=.
 if "%VERSION%"=="" GOTO INSTALLECLIPSECHECKVERSION
 if %VERSION%==latest SET VERSION=%LATEST_ECLIPSE%
@@ -96,9 +100,9 @@ type %DIRECTORY%\eclipse\.eclipseProduct
 GOTO END
 
 :INSTALLSWINGJS
-rem Install SwingJS in the eclipse plugins directory
-rem Q: Should we delete all net.sf.j2s files there first?
-rem Unfortunately "latest" tag will not work
+REM Install SwingJS in the eclipse plugins directory
+REM Q: Should we delete all net.sf.j2s files there first?
+REM Unfortunately "latest" tag will not work
 GOTO CHECKECLIPSEDIR
 :INSTALLSWINGJSOK
 SET DIRECTORY=%DIRECTORY%\dropins
@@ -119,14 +123,14 @@ type %DIRECTORY%\readme*.properties|find "J2S."
 GOTO END
 
 :CHECKPOWERSHELL
-rem Check to see that we can use PowerShell
+REM Check to see that we can use PowerShell
 where powershell >nul 2>&1
 IF not errorlevel 1 GOTO LOOP 
 echo You need PowerShell to use this installation script
 GOTO END
 
 :CHECKUNZIP
-rem Check to see that we have unzip.exe installed
+REM Check to see that we have unzip.exe installed
 if "%VERSION%"=="" GOTO %PROG%
 echo... checking for UNZIP.EXE
 where %UNZIPEXE% >nul 2>&1
@@ -141,7 +145,7 @@ SET UNZIPEXE=unzip.exe
 GOTO %PROG%
 
 :CHECKJAVA
-rem Check to see that we have Java, and what version it is
+REM Check to see that we have Java, and what version it is
 where java >nul 2>&1
 IF not errorlevel 1 GOTO CHECKJAVA64
 echo No Java installed. Please install Java first
@@ -152,7 +156,7 @@ IF errorlevel 1 SET WIN=32
 GOTO CHECKUNZIP
 
 :CHECKECLIPSEDIR
-rem Check to see that we have eclipse in the designated directory or its eclipse subdirectory
+REM Check to see that we have eclipse in the designated directory or its eclipse subdirectory
 if "%DIRECTORY%"=="" SET DIRECTORY=.
 if exist %DIRECTORY%\eclipse.exe GOTO %PROG%OK
 SET DIRECTORY=%DIRECTORY%\eclipse
