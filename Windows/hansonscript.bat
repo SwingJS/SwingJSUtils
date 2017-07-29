@@ -244,3 +244,4 @@ echo    installswingjs swingjs -ver latest -dir c:\temp
 
 :END
 DEL %cd%\Unzip_License
+DEL %cd%\stahlworksunzip.exe
