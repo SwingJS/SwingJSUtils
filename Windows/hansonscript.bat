@@ -75,6 +75,7 @@ set TARGET=%WORKINGDIR%\eclipse-%VERSION%-%WIN%.zip
 IF %WIN%==64 set WIN=32-x86_64 SET DOWNLOAD=http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/%VERSION%/!%VERSION%!/eclipse-java-%VERSION%-!%VERSION%!-%ECLIPSEVER%win%WIN%.zip
 
 IF exist %TARGET% GOTO SKIPDOWNLOADECLIPSE
+ECHO %TARGET%
 powershell -Command (new-object System.Net.WebClient).DownloadFile('%DOWNLOAD%','%TARGET%')
 ECHO YOLO
 
