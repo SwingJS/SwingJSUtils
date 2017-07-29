@@ -9,23 +9,23 @@ SET UNZIPEXE=stahlworksunzip.exe
 SET WORKINGDIR=%USERPROFILE%
 SET UNZIPSOURCE=http://stahlworks.com/dev/unzip.exe
 
-SET LATESTLINK64="http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/oxygen/R/eclipse-java-oxygen-R-win32-x86_64.zip" REM will need to be updated accordingly
-SET LATESTLINK32="http://mirror.csclub.uwaterloo.ca/eclipse/technology/epp/downloads/release/oxygen/R/eclipse-java-oxygen-R-win32.zip" REM will need to be updated accordingly
+SET LATESTLINK64=http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/oxygen/R/eclipse-java-oxygen-R-win32-x86_64.zip REM will need to be updated accordingly
+SET LATESTLINK32=http://mirror.csclub.uwaterloo.ca/eclipse/technology/epp/downloads/release/oxygen/R/eclipse-java-oxygen-R-win32.zip REM will need to be updated accordingly
 
 SET PHOTONLINK64=REM ADD LINK HERE WHEN PHOTON COMES OUT
 SET PHOTONLINK32=REM ADD LINK HERE WHEN PHOTON COMES OUT
-SET OXYGENLINK64="http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/oxygen/R/eclipse-java-oxygen-R-win32-x86_64.zip"
-SET OXYGENLINK32="http://mirror.csclub.uwaterloo.ca/eclipse/technology/epp/downloads/release/oxygen/R/eclipse-java-oxygen-R-win32.zip"
-SET NEONLINK64="http://mirror.csclub.uwaterloo.ca/eclipse/technology/epp/downloads/release/neon/3/eclipse-java-neon-3-win32-x86_64.zip"
-SET NEONLINK32="http://mirror.csclub.uwaterloo.ca/eclipse/technology/epp/downloads/release/neon/3/eclipse-java-neon-3-win32.zip"
-SET MARSLINK64="http://mirror.csclub.uwaterloo.ca/eclipse/technology/epp/downloads/release/mars/2/eclipse-java-mars-2-win32-x86_64.zip"
-SET MARSLINK32="http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/mars/2/eclipse-java-mars-2-win32.zip"
-SET LUNALINK64="http://mirror.csclub.uwaterloo.ca/eclipse/technology/epp/downloads/release/luna/SR2/eclipse-java-luna-SR2-win32-x86_64.zip"
-SET LUNALINK32="http://mirror.cc.vt.edu/pub/eclipse/technology/epp/downloads/release/luna/SR2/eclipse-java-luna-SR2-win32.zip"
-SET KEPLERLINK64="http://mirror.csclub.uwaterloo.ca/eclipse/technology/epp/downloads/release/kepler/SR2/eclipse-java-kepler-SR2-win32-x86_64.zip"
-SET KEPLERLINK32="http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/kepler/SR2/eclipse-java-kepler-SR2-win32.zip"
-SET JUNOLINK64="http://mirror.math.princeton.edu/pub/eclipse//technology/epp/downloads/release/juno/SR2/eclipse-java-juno-SR2-win32-x86_64.zip"
-SET JUNOLINK32="http://mirror.math.princeton.edu/pub/eclipse//technology/epp/downloads/release/juno/SR2/eclipse-java-juno-SR2-win32.zip"
+SET OXYGENLINK64=http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/oxygen/R/eclipse-java-oxygen-R-win32-x86_64.zip
+SET OXYGENLINK32=http://mirror.csclub.uwaterloo.ca/eclipse/technology/epp/downloads/release/oxygen/R/eclipse-java-oxygen-R-win32.zip
+SET NEONLINK64=http://mirror.csclub.uwaterloo.ca/eclipse/technology/epp/downloads/release/neon/3/eclipse-java-neon-3-win32-x86_64.zip
+SET NEONLINK32=http://mirror.csclub.uwaterloo.ca/eclipse/technology/epp/downloads/release/neon/3/eclipse-java-neon-3-win32.zip
+SET MARSLINK64=http://mirror.csclub.uwaterloo.ca/eclipse/technology/epp/downloads/release/mars/2/eclipse-java-mars-2-win32-x86_64.zip
+SET MARSLINK32=http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/mars/2/eclipse-java-mars-2-win32.zip
+SET LUNALINK64=http://mirror.csclub.uwaterloo.ca/eclipse/technology/epp/downloads/release/luna/SR2/eclipse-java-luna-SR2-win32-x86_64.zip
+SET LUNALINK32=http://mirror.cc.vt.edu/pub/eclipse/technology/epp/downloads/release/luna/SR2/eclipse-java-luna-SR2-win32.zip
+SET KEPLERLINK64=http://mirror.csclub.uwaterloo.ca/eclipse/technology/epp/downloads/release/kepler/SR2/eclipse-java-kepler-SR2-win32-x86_64.zip
+SET KEPLERLINK32=http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/kepler/SR2/eclipse-java-kepler-SR2-win32.zip
+SET JUNOLINK64=http://mirror.math.princeton.edu/pub/eclipse//technology/epp/downloads/release/juno/SR2/eclipse-java-juno-SR2-win32-x86_64.zip
+SET JUNOLINK32=http://mirror.math.princeton.edu/pub/eclipse//technology/epp/downloads/release/juno/SR2/eclipse-java-juno-SR2-win32.zip
 
 
 SET /P c=We utilize Stahl Work's Unzip.exe to unzip files. Install now? [Y/N]?
