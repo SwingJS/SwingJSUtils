@@ -219,7 +219,7 @@ GOTO END
 :CHECKJAVA64
 java -d64 -version >nul 2>&1
 IF errorlevel 1 SET WIN=32
-GOTO CHECKUNZIP
+GOTO %PROG%
 
 :CHECKECLIPSEDIR
 REM Check to see that we have eclipse in the designated directory or its eclipse subdirectory
