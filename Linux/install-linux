@@ -25,11 +25,11 @@ convertEclipseNames() {
 }
 
 SCRIPTDIR=$(pwd)
-if [ $1 == "-eclipse" ]
+if [ $1 == "eclipse" ]
 then
     if [ $2 == "-version" ]
     then
-        if [ ! -z "$3" ] #Argument 3 is not empty [1) User wants ./install-mac -eclipse -version [check eclipse version] with supplied path or 2) user actually wants to install eclipse supplying the version for the 3rd argument]
+        if [ ! -z "$3" ] #Argument 3 is not empty [1) User wants ./install-mac eclipse -version [check eclipse version] with supplied path or 2) user actually wants to install eclipse supplying the version for the 3rd argument]
         then
             if [ -d "${3}" ] #Argument 3 a directory [User wants to check Eclipse -version in a specific directory without installing anything]
             then
@@ -169,87 +169,87 @@ Not a valid command. See README for instructions: (https://github.com/SwingJS/Sw
 
 
 
-elif [ $1 == "-j2s" ]
-then
-
-    if [ $2 == "-version" ]
-    then
-        if [ ! -z "$3" ] #Argument 3 is not empty [1) User wants ./install-mac -j2s -version [check j2s version] with supplied path or 2) user actually wants to install j2s supplying the version for the 3rd argument]
-        then
-            if [ -d "$3" ] #Argument 3 a directory [User wants to check Eclipse -version in a specific directory without installing anything]
-            then
-                cd $3
-                CURRENTJ2S=$(ls *.zip)
-                CURRENTJ2S=${CURRENTJ2S:11}
-                CURRENTJ2S=${CURRENTJ2S:0:5}
-                echo "J2S Version $CURRENTJ2S"
-                exit
-
-            else #User does not want to print the j2s version but wants to install it
-                if [ ! -z "$4" ] #Argument 4 is not empty (this is where path would go), assume user wants to install Eclipse in the same directory as the script
-                then
-                    if [ -d "$4" ] #Argument 4 is a valid path
-                    then
-                        cd $4
-                        wget https://raw.githubusercontent.com/SwingJS/SwingJSUtils/master/latestj2s
-                        NEWESTJ2S=`cat latestj2s`
-                        rm latestj2s
-                        rm -rf net.sf.j2s*
-                        wget https://github.com/BobHanson/java2script/raw/swingjs/releases/$3/net.sf.j2s_$3.zip
-                        mv net.sf.j2s_$3.zip net.sf.j2s_$NEWESTJ2S.zip
-                        unzip net.sf.j2s_$NEWESTJ2S.zip
-                        exit
-                    else
-
-                        echo "
-****************************************
-$4 is not a valid path. Please provide a valid POSIX path to the J2S Plugins, or leave it blank if you want the script to assume the eclipse directory is in the same directory as the script
-****************************************
-"
-                        exit
-                    fi
-                fi #No need for else since if they leave argument 4 (path) blank, then no need to cd since the script will just assume the user wants the work done in the same directory as the script
-                wget https://raw.githubusercontent.com/SwingJS/SwingJSUtils/master/latestj2s
-                NEWESTJ2S=`cat latestj2s`
-                rm latestj2s
-
-                rm -rf eclipse/dropins/net.sf.j2s*
-                wget https://github.com/BobHanson/java2script/raw/swingjs/releases/$3/net.sf.j2s_$3.zip
-                mv net.sf.j2s_$3.zip net.sf.j2s_$NEWESTJ2S.zip
-                cp net.sf.j2s_$NEWESTJ2S.zip eclipse/dropins/net.sf.j2s_$NEWESTJ2S.zip
-                unzip net.sf.j2s_$NEWESTJ2S.zip -d eclipse/dropins/
-                rm net.sf.j2s_$NEWESTJ2S.zip
-                exit
-
-            fi
-        else #Argument 3 is empty [Guaranteed user wants ./install-mac j2s -version [Check Eclipse Version, Don't Install Anything] with no path option (assume Eclipse is in the same directory as the script]
-
-            if [ -d "eclipse" ]
-            then
-                cd eclipse/dropins
-                CURRENTJ2S=$(ls *.zip)
-                CURRENTJ2S=${CURRENTJ2S:11}
-                CURRENTJ2S=${CURRENTJ2S:0:5}
-                echo "J2s Version $CURRENTJ2S"
-                exit
-            else
-                echo "
-****************************************
-Cannot find $(pwd)/eclipse folder. Please specify your dropins folder to see the correct J2S version.
-****************************************
-                "
-            fi
-
-        fi
-
-    else
-        echo "
-****************************************
-Not a valid command. See README for instructions: (https://github.com/SwingJS/SwingJSUtils/blob/master/Mac/README.md)
-****************************************
-"
-        exit
-    fi
+# elif [ $1 == "j2s" ]
+# then
+#
+    # if [ $2 == "-version" ]
+    # then
+        # if [ ! -z "$3" ] #Argument 3 is not empty [1) User wants ./install-mac j2s -version [check j2s version] with supplied path or 2) user actually wants to install j2s supplying the version for the 3rd argument]
+        # then
+            # if [ -d "$3" ] #Argument 3 a directory [User wants to check Eclipse -version in a specific directory without installing anything]
+            # then
+                # cd $3
+                # CURRENTJ2S=$(ls *.zip)
+                # CURRENTJ2S=${CURRENTJ2S:11}
+                # CURRENTJ2S=${CURRENTJ2S:0:5}
+                # echo "J2S Version $CURRENTJ2S"
+                # exit
+#
+            # else #User does not want to print the j2s version but wants to install it
+                # if [ ! -z "$4" ] #Argument 4 is not empty (this is where path would go), assume user wants to install Eclipse in the same directory as the script
+                # then
+                    # if [ -d "$4" ] #Argument 4 is a valid path
+                    # then
+                        # cd $4
+                        # wget https://raw.githubusercontent.com/SwingJS/SwingJSUtils/master/latestj2s
+                        # NEWESTJ2S=`cat latestj2s`
+                        # rm latestj2s
+                        # rm -rf net.sf.j2s*
+                        # wget https://github.com/BobHanson/java2script/raw/swingjs/releases/$3/net.sf.j2s_$3.zip
+                        # mv net.sf.j2s_$3.zip net.sf.j2s_$NEWESTJ2S.zip
+                        # unzip net.sf.j2s_$NEWESTJ2S.zip
+                        # exit
+                    # else
+#
+                        # echo "
+# ****************************************
+# $4 is not a valid path. Please provide a valid POSIX path to the J2S Plugins, or leave it blank if you want the script to assume the eclipse directory is in the same directory as the script
+# ****************************************
+# "
+                        # exit
+                    # fi
+                # fi #No need for else since if they leave argument 4 (path) blank, then no need to cd since the script will just assume the user wants the work done in the same directory as the script
+                # wget https://raw.githubusercontent.com/SwingJS/SwingJSUtils/master/latestj2s
+                # NEWESTJ2S=`cat latestj2s`
+                # rm latestj2s
+#
+                # rm -rf eclipse/dropins/net.sf.j2s*
+                # wget https://github.com/BobHanson/java2script/raw/swingjs/releases/$3/net.sf.j2s_$3.zip
+                # mv net.sf.j2s_$3.zip net.sf.j2s_$NEWESTJ2S.zip
+                # cp net.sf.j2s_$NEWESTJ2S.zip eclipse/dropins/net.sf.j2s_$NEWESTJ2S.zip
+                # unzip net.sf.j2s_$NEWESTJ2S.zip -d eclipse/dropins/
+                # rm net.sf.j2s_$NEWESTJ2S.zip
+                # exit
+#
+            # fi
+        # else #Argument 3 is empty [Guaranteed user wants ./install-mac j2s -version [Check Eclipse Version, Don't Install Anything] with no path option (assume Eclipse is in the same directory as the script]
+#
+            # if [ -d "eclipse" ]
+            # then
+                # cd eclipse/dropins
+                # CURRENTJ2S=$(ls *.zip)
+                # CURRENTJ2S=${CURRENTJ2S:11}
+                # CURRENTJ2S=${CURRENTJ2S:0:5}
+                # echo "J2s Version $CURRENTJ2S"
+                # exit
+            # else
+                # echo "
+# ****************************************
+# Cannot find $(pwd)/eclipse folder. Please specify your dropins folder to see the correct J2S version.
+# ****************************************
+                # "
+            # fi
+#
+        # fi
+#
+    # else
+        # echo "
+# ****************************************
+# Not a valid command. See README for instructions: (https://github.com/SwingJS/SwingJSUtils/blob/master/Mac/README.md)
+# ****************************************
+# "
+        # exit
+    # fi
 
 
 
