@@ -3,7 +3,7 @@ setlocal enabledelayedexpansion
 REM installSwingJS.bat eclipse|swingjs [-ver [latest|3.1.1|etc...]] [-dir directory] [-32|-64]
 SET PROG=INSTALL-help
 SET VERSION=latest
-SET LATEST_ECLIPSE=oxygen
+REM SET LATEST_ECLIPSE=oxygen
 SET DIRECTORY=
 SET WIN=64
 SET UNZIPEXE=stahlworksunzip.exe
