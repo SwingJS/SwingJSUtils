@@ -119,18 +119,23 @@ echo... checking for UNZIP.EXE
 where %UNZIPEXE% >nul 2>&1
 IF not errorlevel 1 GOTO %PROG%
 
-IF %UNZIPTYPE%==stahl (
-  powershell -Command (new-object System.Net.WebClient).DownloadFile('https://raw.githubusercontent.com/SwingJS/SwingJSUtils/master/Windows/Unzip_License','Unzip_License')
-  powershell -Command (new-object System.Net.WebClient).DownloadFile('http://stahlworks.com/dev/unzip.exe','stahlworksunzip.exe')
-  START notepad Unzip_License
-) else (
-  set /P c=We utilize GNU unzip.exe to unzip files. Install now? [Y/N]?
-  IF /I "%c%" EQU "N" GOTO END
-  echo installing GNU unzip.exe
-  set TARGET=%WORKINGDIR%\unzip_installer.exe
-  powershell -Command (new-object System.Net.WebClient).DownloadFile('%UNZIPSOURCE%','%TARGET%')
-  %TARGET%
-)
+IF %UNZIPTYPE%==stahl GOTO STAHLINSTALL
+GOTO GNUUNZIP
+:STAHLINSTALL
+powershell -Command (new-object System.Net.WebClient).DownloadFile('https://raw.githubusercontent.com/SwingJS/SwingJSUtils/master/Windows/Unzip_License','%cd%\Unzip_License')
+powershell -Command (new-object System.Net.WebClient).DownloadFile('http://stahlworks.com/dev/unzip.exe','%cd%\stahlworksunzip.exe')
+START notepad Unzip_License
+GOTO SKIPGNU
+
+:GNUUNZIP
+set /P c=We utilize GNU unzip.exe to unzip files. Install now? [Y/N]?
+IF /I "%c%" EQU "N" GOTO END
+echo installing GNU unzip.exe
+set TARGET=%WORKINGDIR%\unzip_installer.exe
+powershell -Command (new-object System.Net.WebClient).DownloadFile('%UNZIPSOURCE%','%TARGET%')
+%TARGET%
+
+:SKIPGNU
 
 set UNZIPEXE=unzip.exe
 goto %PROG%
