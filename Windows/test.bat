@@ -72,9 +72,15 @@ if "%VERSION%"=="" goto INSTALLeclipseCHECKVERSION
 if %VERSION%==latest set VERSION=%LATEST_ECLIPSE%
 echo %PROG% -ver %VERSION% -%WIN% -dir %DIRECTORY%
 set TARGET=%WORKINGDIR%\eclipse-%VERSION%-%WIN%.zip
-IF %WIN%==64 set WIN=32-x86_64 SET DOWNLOAD=http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/%VERSION%/!%VERSION%!/eclipse-java-%VERSION%-!%VERSION%!-%ECLIPSEVER%win%WIN%.zip
+if %WIN%==64 set WIN=32-x86_64
+  set DOWNLOAD=http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/%VERSION%/!%VERSION%!/eclipse-java-%VERSION%-!%VERSION%!-%ECLIPSEVER%win%WIN%.zip
+ECHO %TARGET%
+ECHO %DOWNLOAD%
+PAUSE 
+if exist %TARGET% GOTO INSTALLeclipseOK
+  powershell -Command (new-object System.Net.WebClient).DownloadFile('%DOWNLOAD%','%TARGET%')
 
-IF NOT exist %TARGET% GOTO powershell -Command (new-object System.Net.WebClient).DownloadFile('%DOWNLOAD%','%TARGET%')
+:INSTALLeclipseOK
 
 echo unzipping %TARGET% into %DIRECTORY%
 %UNZIPEXE% %TARGET% -d %DIRECTORY%
