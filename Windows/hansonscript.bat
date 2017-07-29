@@ -75,7 +75,7 @@ set TARGET=%WORKINGDIR%\eclipse-%VERSION%-%WIN%.zip
 IF %WIN%==64 set WIN=32-x86_64 SET DOWNLOAD=http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/%VERSION%/!%VERSION%!/eclipse-java-%VERSION%-!%VERSION%!-%ECLIPSEVER%win%WIN%.zip
 
 IF exist %TARGET% GOTO SKIPDOWNLOADECLIPSE
-ECHO !%DOWNLOAD%!
+ECHO %DOWNLOAD%
 ECHO %TARGET%
 powershell -Command (new-object System.Net.WebClient).DownloadFile('%DOWNLOAD%','%TARGET%')
 ECHO YOLO
@@ -129,7 +129,7 @@ GOTO GNUUNZIP
 
 :STAHLINSTALL
 powershell -Command (new-object System.Net.WebClient).DownloadFile('https://raw.githubusercontent.com/SwingJS/SwingJSUtils/master/Windows/Unzip_License','%cd%\Unzip_License')
-powershell -Command (new-object System.Net.WebClient).DownloadFile('http://stahlworks.com/dev/unzip.exe','%cd%\stahlworksunzip.exe')
+powershell -Command (new-object System.Net.WebClient).DownloadFile('http://stahlworks.com/dev/unzip.exe','%cd%\sunzip.exe')
 START notepad Unzip_License
 GOTO SKIPGNU
 
