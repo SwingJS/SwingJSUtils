@@ -76,8 +76,8 @@ IF %WIN%==64 set WIN=32-x86_64 SET DOWNLOAD=http://eclipse.mirror.rafal.ca/techn
 
 REM  IF exist %TARGET% GOTO SKIPDOWNLOADECLIPSE
 
-REM  ECHO %DOWNLOAD%
-REM  ECHO %TARGET%
+ECHO %DOWNLOAD%
+ECHO %TARGET%
 powershell -Command (new-object System.Net.WebClient).DownloadFile('%DOWNLOAD%','%TARGET%')
 REM  ECHO YOLO
 
