@@ -130,7 +130,7 @@ GOTO GNUUNZIP
 
 :STAHLINSTALL
 powershell -Command (new-object System.Net.WebClient).DownloadFile('https://raw.githubusercontent.com/SwingJS/SwingJSUtils/master/Windows/Unzip_License','%cd%\Unzip_License')
-powershell -Command (new-object System.Net.WebClient).DownloadFile('http://stahlworks.com/dev/unzip.exe','%cd%\sunzip.exe')
+powershell -Command (new-object System.Net.WebClient).DownloadFile('http://stahlworks.com/dev/unzip.exe','%cd%\unzip.exe')
 START notepad Unzip_License
 set UNZIPEXE=%cd%\unzip.exe
 GOTO SKIPGNU
