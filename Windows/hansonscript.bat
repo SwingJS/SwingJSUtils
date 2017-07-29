@@ -75,6 +75,7 @@ set TARGET=%WORKINGDIR%\eclipse-%VERSION%-%WIN%.zip
 if not exist %TARGET% (
   if WIN==64 set WIN=32-x86_64
   set DOWNLOAD=http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/%VERSION%/!%VERSION%!/eclipse-java-!%VERSION%!-%ECLIPSEVER%-win%WIN%.zip
+  ECHO %DOWNLOAD%
   powershell -Command (new-object System.Net.WebClient).DownloadFile('%DOWNLOAD%','%TARGET%')
 )
 echo unzipping %TARGET% into %DIRECTORY%
