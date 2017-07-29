@@ -33,7 +33,6 @@ IF /I "%c%" EQU "N" GOTO END
 bitsadmin /transfer unziplicense /priority high https://raw.githubusercontent.com/SwingJS/SwingJSUtils/master/Windows/Unzip_License %cd%\Unzip_License
 bitsadmin /transfer unzip /priority high http://stahlworks.com/dev/unzip.exe %cd%\stahlworksunzip.exe
 START notepad %cd%\Unzip_License
-DEL %cd%\Unzip_License
 
 
 
@@ -244,3 +243,4 @@ echo    installswingjs eclipse -ver neon -dir c:\temp
 echo    installswingjs swingjs -ver latest -dir c:\temp
 
 :END
+DEL %cd%\Unzip_License
