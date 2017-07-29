@@ -72,16 +72,16 @@ if "%VERSION%"=="" goto INSTALLeclipseCHECKVERSION
 if %VERSION%==latest set VERSION=%LATEST_ECLIPSE%
 echo %PROG% -ver %VERSION% -%WIN% -dir %DIRECTORY%
 set TARGET=%WORKINGDIR%\eclipse-%VERSION%-%WIN%.zip
-IF %WIN%==64 set WIN=32-x86_64 SET DOWNLOAD=http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/%VERSION%/!%VERSION%!/eclipse-java-%VERSION%-!%VERSION%!-%ECLIPSEVER%win%WIN%.zip
-
-REM  IF exist %TARGET% GOTO SKIPDOWNLOADECLIPSE
-
-ECHO %DOWNLOAD%
+if %WIN%==64 set WIN=32-x86_64
+  set DOWNLOAD=http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/%VERSION%/!%VERSION%!/eclipse-java-%VERSION%-!%VERSION%!-%ECLIPSEVER%win%WIN%.zip
 ECHO %TARGET%
-powershell -Command (new-object System.Net.WebClient).DownloadFile('%DOWNLOAD%','%TARGET%')
-REM  ECHO YOLO
+ECHO %DOWNLOAD%
+PAUSE 
+if exist %TARGET% GOTO INSTALLeclipseOK
+  powershell -Command (new-object System.Net.WebClient).DownloadFile('%DOWNLOAD%','%TARGET%')
 
-REM  :SKIPDOWNLOADECLIPSE
+:INSTALLeclipseOK
+
 echo unzipping %TARGET% into %DIRECTORY%
 %UNZIPEXE% %TARGET% -d %DIRECTORY%
 :INSTALLeclipseCHECKVERSION
@@ -125,25 +125,19 @@ echo... checking for UNZIP.EXE
 where %UNZIPEXE% >nul 2>&1
 IF not errorlevel 1 GOTO %PROG%
 
-IF %UNZIPTYPE%==stahl GOTO STAHLINSTALL
-GOTO GNUUNZIP
+IF %UNZIPTYPE%==stahl (
+  powershell -Command (new-object System.Net.WebClient).DownloadFile('https://raw.githubusercontent.com/SwingJS/SwingJSUtils/master/Windows/Unzip_License','%cd%\Unzip_License')
+  powershell -Command (new-object System.Net.WebClient).DownloadFile('http://stahlworks.com/dev/unzip.exe','stahlworksunzip.exe')
+  START notepad Unzip_License
+) else (
+  set /P c=We utilize GNU unzip.exe to unzip files. Install now? [Y/N]?
+  IF /I "%c%" EQU "N" GOTO END
+  echo installing GNU unzip.exe
+  set TARGET=%WORKINGDIR%\unzip_installer.exe
+  powershell -Command (new-object System.Net.WebClient).DownloadFile('%UNZIPSOURCE%','%TARGET%')
+  %TARGET%
+)
 
-:STAHLINSTALL
-powershell -Command (new-object System.Net.WebClient).DownloadFile('https://raw.githubusercontent.com/SwingJS/SwingJSUtils/master/Windows/Unzip_License','%cd%\Unzip_License')
-powershell -Command (new-object System.Net.WebClient).DownloadFile('http://stahlworks.com/dev/unzip.exe','%cd%\unzip.exe')
-START notepad Unzip_License
-GOTO SKIPGNU
-
-:GNUUNZIP
-set /P c=We utilize GNU unzip.exe to unzip files. Install now? [Y/N]?
-IF /I "%c%" EQU "N" GOTO END
-echo installing GNU unzip.exe
-set TARGET=%WORKINGDIR%\unzip_installer.exe
-powershell -Command (new-object System.Net.WebClient).DownloadFile('%UNZIPSOURCE%','%TARGET%')
-%TARGET%
-GOTO SKIPGNU
-
-:SKIPGNU
 set UNZIPEXE=unzip.exe
 goto %PROG%
 
@@ -180,3 +174,4 @@ echo    installswingjs eclipse -ver neon -dir c:\temp
 echo    installswingjs swingjs -ver latest -dir c:\temp
 
 :END
+
