@@ -73,7 +73,7 @@ if %VERSION%==latest set VERSION=%LATEST_ECLIPSE%
 echo %PROG% -ver %VERSION% -%WIN% -dir %DIRECTORY%
 set TARGET=%WORKINGDIR%\eclipse-%VERSION%-%WIN%.zip
 if exist %TARGET% goto INSTALLeclipseOK
-  if WIN==64 set WIN=32-x86_64
+  if %WIN%==64 set WIN=32-x86_64
   set DOWNLOAD=http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/%VERSION%/!%VERSION%!/eclipse-java-%VERSION%-!%VERSION%!-win%WIN%.zip
   echo ...downloading %DOWNLOAD%
   powershell -Command (new-object System.Net.WebClient).DownloadFile('%DOWNLOAD%','%TARGET%')
@@ -131,7 +131,7 @@ IF %UNZIPTYPE%==stahl GOTO CHECKUNZIPSTAHL
 goto CHECKUNZIPOK
 :CHECKUNZIPSTAHL
   powershell -Command (new-object System.Net.WebClient).DownloadFile('https://raw.githubusercontent.com/SwingJS/SwingJSUtils/master/Windows/Unzip_License','%cd%\Unzip_License')
-  powershell -Command (new-object System.Net.WebClient).DownloadFile('http://stahlworks.com/dev/unzip.exe','stahlworksunzip.exe')
+  powershell -Command (new-object System.Net.WebClient).DownloadFile('http://stahlworks.com/dev/unzip.exe','unzip.exe')
   START notepad Unzip_License
 :CHECKUNZIPOK
 set UNZIPEXE=unzip.exe
