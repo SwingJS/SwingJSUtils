@@ -20,7 +20,7 @@ set WIN=64
 
 goto CHECKPOWERSHELL
 
-rem process command line variables
+rem process command line variablesta
 
 :LOOP
 if "%1%"=="" goto DONE
@@ -76,7 +76,7 @@ if exist %TARGET% goto INSTALLeclipseOK
   if %WIN%==64 set WIN=32-x86_64
   set DOWNLOAD=http://eclipse.mirror.rafal.ca/technology/epp/downloads/release/%VERSION%/!%VERSION%!/eclipse-java-%VERSION%-!%VERSION%!-win%WIN%.zip
   echo ...downloading %DOWNLOAD%
-  powershell -Command (new-object System.Net.WebClient).DownloadFile('%DOWNLOAD%','%TARGET%')
+  powershell -Command "(new-object System.Net.WebClient).DownloadFile('%DOWNLOAD%','%TARGET%')"
 :INSTALLeclipseOK
 echo unzipping %TARGET% into %DIRECTORY%
 %UNZIPEXE% %TARGET% -d %DIRECTORY%
@@ -100,7 +100,8 @@ if %VERSION%==latest (
   set DIR=tags/%VERSION%
 )
 set DOWNLOAD=https://sourceforge.net/p/swingjs/code/HEAD/tree/%DIR%/dist/SwingJS_full.zip?format=raw
-powershell -Command (new-object System.Net.WebClient).DownloadFile('%DOWNLOAD%','%TARGET%')
+echo ...powershell -Command (new-object System.Net.WebClient).DownloadFile('%DOWNLOAD%','%TARGET%')
+powershell -Command "(new-object System.Net.WebClient).DownloadFile('%DOWNLOAD%','%TARGET%')"
 echo unzipping %TARGET% into %DIRECTORY%
 %UNZIPEXE% %TARGET% -d %DIRECTORY%
 :INSTALLswingjsCHECKVERSION
@@ -126,15 +127,16 @@ IF %UNZIPTYPE%==stahl GOTO CHECKUNZIPSTAHL
   IF /I "%c%" EQU "N" GOTO END
   echo installing GNU unzip.exe
   set TARGET=%WORKINGDIR%\unzip_installer.exe
-  powershell -Command (new-object System.Net.WebClient).DownloadFile('%UNZIPSOURCE%','%TARGET%')
+  powershell -Command "(new-object System.Net.WebClient).DownloadFile('%UNZIPSOURCE%','%TARGET%')"
   %TARGET%
 goto CHECKUNZIPOK
 :CHECKUNZIPSTAHL
-  powershell -Command (new-object System.Net.WebClient).DownloadFile('https://raw.githubusercontent.com/SwingJS/SwingJSUtils/master/Windows/Unzip_License','%cd%\Unzip_License')
-  powershell -Command (new-object System.Net.WebClient).DownloadFile('http://stahlworks.com/dev/unzip.exe','unzip.exe')
+  powershell -Command "(new-object System.Net.WebClient).DownloadFile('https://raw.githubusercontent.com/SwingJS/SwingJSUtils/master/Windows/Unzip_License','%cd%\Unzip_License')"
+  powershell -Command "(new-object System.Net.WebClient).DownloadFile('http://stahlworks.com/dev/unzip.exe','stahlworksunzip.exe')"
   START notepad Unzip_License
 :CHECKUNZIPOK
 set UNZIPEXE=unzip.exe
+where $UNSZIPEXE
 goto %PROG%
 
 :CHECKJAVA
