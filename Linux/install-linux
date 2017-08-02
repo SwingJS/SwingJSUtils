@@ -253,7 +253,7 @@ Not a valid command. See README for instructions: (https://github.com/SwingJS/Sw
 
 
 
-elif [ $1 == "-swingjs" ]
+elif [ $1 == "swingjs" ]
 then
 
     if [ $2 == "-version" ]
